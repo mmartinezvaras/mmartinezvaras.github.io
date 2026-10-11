@@ -1,10 +1,11 @@
-// TODO el contenido personal vive aquí. Lo marcado con [COMPLETAR] hay que sustituirlo.
+// Todo el contenido personal de la web vive aquí.
 export const site = {
   name: 'Marcos María Martínez Varas',
-  role: 'Big Data · IA aplicada · IA generativa',
+  role: 'Junior Data & AI Engineer',
+  focus: 'Big Data e IA generativa',
   tagline: 'Convierto datos en decisiones.',
   intro:
-    'Técnico Superior en DAM con prácticas en Minsait (Indra Group). Ahora me especializo en Big Data, IA aplicada e IA generativa en U-tad, y estoy aprendiendo COBOL: me interesa tanto lo que se construye hoy como los sistemas que llevan décadas funcionando.',
+    'Técnico Superior en DAM con prácticas en Minsait (Indra Group) y estudiante del máster en Big Data, IA aplicada e IA generativa de U-tad. Construyo pipelines de datos y aplicaciones con IA generativa, y estoy aprendiendo COBOL para conectar los sistemas de siempre con la tecnología de hoy.',
   cv: 'Marcos_Maria_Martinez_Varas_BigData_IA.pdf',
   // Nombre con el que se guarda el CV al descargarlo
   cvFileName: 'Marcos_Maria_Martinez_Varas_BigData_IA.pdf',
@@ -61,35 +62,35 @@ export const site = {
     'Carnet de conducir',
     'Experiencia dirigiendo un equipo de fútbol: liderazgo y organización',
   ],
+  // Solo tecnologías usadas en repos públicos (o en el CV, como Spark, COBOL y Git).
   skills: [
     {
-      category: 'Big Data',
-      items: [
-        { name: 'Spark', learning: false },
-        { name: 'Pandas', learning: false },
-      ],
-    },
-    {
       category: 'IA generativa',
-      items: [
-        { name: 'LLMs', learning: false },
-        { name: 'Prompting', learning: false },
-        { name: 'RAG', learning: false },
-        { name: 'ChromaDB', learning: false },
-      ],
+      items: ['LLMs', 'RAG', 'LangChain', 'Ollama', 'AWS Bedrock', 'ChromaDB', 'Streamlit', 'Evaluación LLM-as-judge', 'Prompting'].map((name) => ({ name, learning: false })),
     },
     {
-      category: 'Lenguajes y herramientas',
-      items: [
-        { name: 'Python', learning: false },
-        { name: 'SQL', learning: false },
-        { name: 'Java', learning: false },
-        { name: 'TypeScript', learning: false },
-        { name: 'Angular', learning: false },
-        { name: 'Git', learning: false },
-        { name: 'HTML', learning: false },
-        { name: 'CSS', learning: false },
-      ],
+      category: 'Machine Learning',
+      items: ['scikit-learn', 'pandas', 'Jupyter', 'Matplotlib'].map((name) => ({ name, learning: false })),
+    },
+    {
+      category: 'Big Data',
+      items: ['Spark', 'Hadoop HDFS'].map((name) => ({ name, learning: false })),
+    },
+    {
+      category: 'Datos y backend',
+      items: ['SQL', 'MySQL', 'MongoDB / PyMongo', 'Spring Boot', 'JPA / Hibernate'].map((name) => ({ name, learning: false })),
+    },
+    {
+      category: 'Calidad y DevOps',
+      items: ['pytest', 'JUnit 5 / Mockito', 'GitHub Actions', 'Docker', 'Git'].map((name) => ({ name, learning: false })),
+    },
+    {
+      category: 'Lenguajes y front-end',
+      items: ['Python', 'Java', 'TypeScript', 'Angular', 'PrimeNG', 'HTML', 'CSS'].map((name) => ({ name, learning: false })),
+    },
+    {
+      category: 'Visión por computador',
+      items: ['OpenCV', 'face_recognition'].map((name) => ({ name, learning: false })),
     },
     {
       category: 'Mainframe',

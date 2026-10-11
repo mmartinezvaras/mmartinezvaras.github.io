@@ -6,6 +6,7 @@
 //     Nunca inventes una cifra: si no la has medido, usa una frase cierta.
 // - how: cómo funciona, en lenguaje llano.
 // - tech: detalles técnicos para quien sí lo es (se muestran plegados). Explica cada término.
+// - decisions / next / image: opcionales (decisiones clave, siguientes pasos y captura).
 // - featured: true solo en UN proyecto, el principal.
 // Entre un número y "%" pon un espacio que no se parte (Alt+0160) para que no se separen.
 export type Area = 'IA generativa' | 'Big Data' | 'IA y ML' | 'Desarrollo';
@@ -23,6 +24,10 @@ export interface Project {
   stack: string[];
   repo: string;
   demo?: string;
+  // Opcionales: solo se muestran si existen. Sácalos de los README de cada repo.
+  decisions?: string[];
+  next?: string[];
+  image?: { src: string; alt: string; width: number; height: number };
 }
 
 export const areas: Area[] = ['IA generativa', 'Big Data', 'IA y ML', 'Desarrollo'];
@@ -40,7 +45,7 @@ export const projects: Project[] = [
       label: 'Cada respuesta dice de qué documento y página sale, para que puedas comprobarla.',
     },
     how:
-      'Parte los PDFs en trozos, los guarda en una base de datos que busca por significado (no por palabras exactas) y le pasa los 5 trozos más parecidos a una IA que se ejecuta en el propio ordenador. Esa IA solo puede responder con lo que dicen los documentos.',
+      'Parte los PDFs en trozos, los guarda en una base de datos que busca por significado (no por palabras exactas) y le pasa los 5 trozos más parecidos a una IA que se ejecuta en el propio ordenador. Esa IA solo puede responder con lo que dicen los documentos, y por defecto ningún documento sale de la máquina.',
     tech: [
       {
         title: 'Datos',
@@ -48,52 +53,41 @@ export const projects: Project[] = [
       },
       {
         title: 'Búsqueda',
-        text: 'Cada fragmento se convierte en una lista de números que representa su significado (embeddings de AWS Bedrock) y se guarda en ChromaDB. Al preguntar, se recuperan los 5 fragmentos más parecidos.',
+        text: 'Cada fragmento se convierte en una lista de números que representa su significado (embeddings locales con nomic-embed-text en Ollama; AWS Bedrock como opción) y se guarda en ChromaDB. Al preguntar, se recuperan los 5 fragmentos más parecidos.',
       },
       {
         title: 'Respuesta',
-        text: 'Mistral, ejecutado en local con Ollama, responde usando solo esos fragmentos e indica su origen (documento, página y fragmento). Al añadir PDFs nuevos solo se procesa lo nuevo, sin duplicados.',
+        text: 'Llama 3.2 3B en local con Ollama (temperatura 0, se puede cambiar por otro modelo, como Mistral) responde usando solo esos fragmentos e indica su origen: documento, página y fragmento. Al añadir PDFs nuevos solo se procesa lo nuevo, sin duplicados.',
       },
       {
         title: 'Pruebas',
-        text: 'Tests con pytest en los que el propio modelo comprueba si la respuesta coincide con la esperada. Parte de un proyecto de referencia que adapté.',
+        text: 'Tests con pytest y evaluación LLM-as-judge (el propio modelo comprueba si la respuesta coincide con la esperada), que se ejecutan de principio a fin en GitHub Actions en cada cambio. Parte de un proyecto de referencia que adapté.',
+      },
+      {
+        title: 'Demo',
+        text: 'Interfaz web en Streamlit que se abre en GitHub Codespaces con un clic, sin instalar nada. Admite preguntas en español o inglés y subir tus propios PDF.',
       },
     ],
-    stack: ['Python', 'LangChain', 'ChromaDB', 'AWS Bedrock', 'Ollama', 'Mistral', 'pytest'],
-    repo: 'https://github.com/mmartinezvaras/Python-RAG-AI-para-los-PDFs',
-  },
-  {
-    slug: 'retail-lakehouse',
-    name: 'Pipeline de datos para retail',
-    area: 'Big Data',
-    problem:
-      'Cuando una empresa compra otra, sus listas de clientes no encajan: hay duplicados, nombres mal escritos y ciudades con erratas.',
-    impact: {
-      value: 'Una sola lista fiable',
-      label: 'Une los datos de las dos empresas en una base limpia, lista para sacar informes.',
+    stack: ['Python', 'LangChain', 'ChromaDB', 'Ollama', 'Streamlit', 'Llama 3.2', 'pytest'],
+    decisions: [
+      'Fragmentos de 800 caracteres con un 10 % de solapamiento: lo bastante pequeños para recuperar pasajes precisos sin cortar frases.',
+      'Recuperar 5 fragmentos: contexto suficiente para respuestas de varias partes sin saturar el prompt.',
+      'ChromaDB local y persistente: cero infraestructura, y la base sobrevive a los reinicios.',
+      'Modelo e embeddings en local con Ollama: funciona sin conexión en un portátil y gratis.',
+    ],
+    next: [
+      'Devolver la puntuación de relevancia de cada fuente y descartar los fragmentos poco parecidos.',
+      'Un conjunto de evaluación mayor para medir el porcentaje de acierto entre documentos.',
+      'Búsqueda híbrida (palabras clave + vectores) para nombres y cifras exactas.',
+    ],
+    demo: 'https://codespaces.new/mmartinezvaras/Python-RAG-AI-para-los-PDFs?quickstart=1',
+    image: {
+      src: 'https://raw.githubusercontent.com/mmartinezvaras/Python-RAG-AI-para-los-PDFs/HEAD/docs/demo.png',
+      alt: 'Demo web respondiendo a una pregunta y citando sus fuentes',
+      width: 1280,
+      height: 900,
     },
-    how:
-      'Trabaja en tres pasos: primero guarda los ficheros tal como llegan, para no perder nada; después los limpia, quitando duplicados y corrigiendo erratas; y por último los prepara para informes y los une con los de la empresa matriz.',
-    tech: [
-      {
-        title: 'Paso 1 · Copia original',
-        text: 'Capa Bronze: los CSV de clientes, productos y precios se guardan tal cual, con la hora y el fichero de origen, para poder rehacer cualquier paso.',
-      },
-      {
-        title: 'Paso 2 · Limpieza',
-        text: 'Capa Silver: elimina duplicados, quita espacios sobrantes, unifica el formato de los nombres y corrige ciudades mal escritas con correcciones validadas por negocio.',
-      },
-      {
-        title: 'Paso 3 · Listo para informes',
-        text: 'Capa Gold: tablas finales que se fusionan con las de la empresa matriz con un MERGE de Delta Lake, que actualiza lo que ya existe y añade lo nuevo.',
-      },
-      {
-        title: 'Plataforma',
-        text: 'Databricks con PySpark y Spark SQL, tablas Delta Lake y Unity Catalog para organizar los datos por capas.',
-      },
-    ],
-    stack: ['Databricks', 'PySpark', 'Spark SQL', 'Delta Lake', 'Unity Catalog'],
-    repo: 'https://github.com/mmartinezvaras/retail-big-data-pipeline',
+    repo: 'https://github.com/mmartinezvaras/Python-RAG-AI-para-los-PDFs',
   },
   {
     slug: 'ml-partidos',
@@ -105,56 +99,70 @@ export const projects: Project[] = [
       label: 'Cuando predice que un equipo ganará, acierta la mitad de las veces. Al azar serían menos de 4 de cada 10.',
     },
     how:
-      'Aprende de 760 resultados de La Liga 2025-26. Se entrena con los partidos hasta diciembre y se pone a prueba con los de 2026, como si no los conociera. Lo que más le ayudó fue saber cómo había jugado cada equipo en sus 3 últimos partidos.',
+      'Aprende de los 380 partidos de La Liga 2025-26. Se entrena con los partidos hasta diciembre y se pone a prueba con los de 2026, como si no los conociera. Lo que más le ayudó fue saber cómo había jugado cada equipo en sus 3 últimos partidos.',
     tech: [
       {
         title: 'Datos',
-        text: '760 registros (uno por equipo y partido) con goles, tiros, tiros a puerta, faltas, córners y tarjetas.',
+        text: '380 partidos (760 registros, uno por equipo y partido) con goles, tiros, tiros a puerta, faltas, córners y tarjetas.',
       },
       {
         title: 'Modelo',
-        text: 'Random Forest de scikit-learn con campo, rival, hora y día de la semana como variables. Entrenamiento hasta diciembre de 2025 y prueba con 2026, sin usar datos del futuro.',
+        text: 'Random Forest de scikit-learn con local o visitante, rival, hora y día de la semana como variables. Entrenamiento hasta diciembre de 2025 y prueba desde el 1 de enero de 2026, sin usar datos del futuro.',
       },
       {
         title: 'Mejora clave',
-        text: 'Añadir la media de los 3 partidos anteriores de cada equipo subió la precisión al predecir victorias del 46,4 % al 51,5 %.',
+        text: 'Añadir la media de los 3 partidos anteriores de cada equipo (calculada sin incluir el propio partido, para no hacer trampa) subió la precisión al predecir victorias del 46,4 % al 51,5 %.',
       },
       {
-        title: 'Cómo leer el dato',
-        text: 'La precisión mide cuántas de sus predicciones de victoria se cumplen. En los partidos de prueba solo el 38 % fueron victorias, así que acertar el 51,5 % es una mejora real sobre el azar.',
+        title: 'Cuando se moja',
+        text: 'En los 33 enfrentamientos en los que el modelo dio ganador a un solo equipo, acertó 18 (54,5 %).',
+      },
+      {
+        title: 'Por qué precisión y no accuracy',
+        text: 'La precisión mide cuántas de sus predicciones de victoria se cumplen. En los partidos de prueba solo el 38 % fueron victorias, así que decir siempre «no gana» ya daría mucha accuracy sin servir para nada. Acertar el 51,5 % de las victorias que predice es una mejora real sobre el azar.',
       },
     ],
-    stack: ['Python', 'Pandas', 'scikit-learn', 'Jupyter'],
+    stack: ['Python', 'pandas', 'scikit-learn', 'Jupyter'],
     repo: 'https://github.com/mmartinezvaras/MLpartidosPremier',
   },
   {
     slug: 'banking-lakehouse',
-    name: 'Banco simulado con PySpark',
+    name: 'Banco simulado para detectar fraude',
     area: 'Big Data',
     status: 'En desarrollo',
     problem:
       'Los bancos tienen que detectar movimientos sospechosos, pero los datos de clientes reales son privados y no se pueden usar para practicar.',
     impact: {
-      value: '0 datos reales',
-      label: 'Crea un banco ficticio con clientes y movimientos inventados, sin poner en riesgo la privacidad de nadie.',
+      value: '1 de cada 800',
+      label: 'movimientos es un fraude, escondido entre 50.062 transacciones de un banco ficticio. Raro y difícil de ver, como en la vida real.',
     },
     how:
-      'Un programa genera los clientes y sus movimientos, y cada cambio en el código se comprueba automáticamente. El siguiente paso es avisar de patrones raros, como muchos pagos seguidos en poco tiempo.',
+      'Un programa crea 1.000 clientes inventados y seis meses de movimientos, y mete 62 fraudes en 10 ráfagas. Siempre genera exactamente los mismos datos, y cada cambio en el código se comprueba automáticamente.',
     tech: [
       {
         title: 'Hecho',
-        text: 'Generador de datos sintéticos en Python, tests con pytest e integración continua con GitHub Actions (los tests se ejecutan solos en cada cambio).',
+        text: 'Generador en Python con Faker: 1.000 clientes, 50.062 transacciones de enero a junio de 2026 y 62 fraudes en 10 ráfagas (0,12 %). Semilla fija (42) para que el resultado sea reproducible. Tests con pytest en cada push con GitHub Actions.',
       },
       {
-        title: 'Siguiente',
-        text: 'Ingesta y limpieza con PySpark, almacenamiento en Parquet particionado y tablas Delta Lake.',
+        title: 'Planificado',
+        text: 'Ingesta y limpieza con PySpark en capas Bronze, Silver y Gold, almacenamiento en Parquet y tablas Delta Lake.',
       },
       {
-        title: 'Detección de fraude',
+        title: 'Planificado · fraude',
         text: 'Reglas con funciones de ventana, que comparan cada movimiento con los anteriores del mismo cliente (lag/lead y totales acumulados).',
       },
     ],
-    stack: ['Python', 'PySpark', 'Parquet', 'Delta Lake', 'pytest', 'GitHub Actions'],
+    stack: ['Python', 'Faker', 'pytest', 'GitHub Actions'],
+    decisions: [
+      'Reproducir lo que hace difícil el fraude real: es raro, llega en ráfagas y se esconde entre muchos pagos normales.',
+      'El número de ráfagas crece con el volumen de datos (una por cada 5.000 transacciones), así que el problema escala igual.',
+      'Semilla fija: cualquiera obtiene exactamente el mismo dataset en su máquina.',
+    ],
+    next: [
+      'Ingesta y limpieza con PySpark (Bronze → Silver).',
+      'Almacenamiento en Parquet particionado y tablas Delta Lake (Gold).',
+      'Detección de fraude con funciones de ventana y diagrama de arquitectura.',
+    ],
     repo: 'https://github.com/mmartinezvaras/banking-lakehouse-pyspark',
   },
   {
@@ -167,11 +175,11 @@ export const projects: Project[] = [
       label: 'Calcula indicadores como el saldo medio por tipo de cuenta de una sola vez, sin recorrer cliente a cliente.',
     },
     how:
-      'Guarda cada cliente como una ficha con sus cuentas y movimientos dentro, en una base de datos en la nube, y usa índices (como el índice de un libro) para encontrar cuentas rápido.',
+      'Guarda cada cliente como una ficha con sus datos, su dirección y su lista de movimientos dentro, en una base de datos en la nube, y usa índices (como el índice de un libro) para encontrar clientes rápido.',
     tech: [
       {
         title: 'Modelo de datos',
-        text: 'Documentos JSON en MongoDB Atlas con las cuentas y las transacciones embebidas. Los movimientos nuevos se añaden con $push.',
+        text: 'Documentos JSON en MongoDB Atlas (en AWS): tipo de cuenta y saldo son campos simples, y la dirección (objeto) y las transacciones (lista) van embebidas. Los movimientos nuevos se añaden con $push.',
       },
       {
         title: 'Consultas',
@@ -179,7 +187,11 @@ export const projects: Project[] = [
       },
       {
         title: 'Agregaciones',
-        text: 'Pipeline de varias etapas ($match, $group y $sort) para obtener saldos medios e indicadores financieros.',
+        text: 'Pipelines con $match, $group, $sort, $project y $count, y extremos con $min y $max, para obtener saldos medios e indicadores.',
+      },
+      {
+        title: 'Buenas prácticas',
+        text: '33 pasos documentados en un notebook. La cadena de conexión (MONGO_URI) se lee de una variable de entorno, no va en el código.',
       },
     ],
     stack: ['Python', 'PyMongo', 'MongoDB Atlas', 'Google Colab'],
@@ -199,19 +211,48 @@ export const projects: Project[] = [
     tech: [
       {
         title: 'Reconocimiento',
-        text: 'OpenCV captura el vídeo de la cámara y face_recognition compara cada cara con las imágenes registradas.',
+        text: 'OpenCV captura el vídeo y face_recognition (dlib) convierte cada cara en un vector de 128 números. Se acepta la persona más parecida solo si está dentro de un umbral de distancia; si no, queda como desconocida.',
       },
       {
-        title: 'Registro',
-        text: 'Un CSV por día con nombre y hora, con un solo registro por persona aunque pase varias veces por la cámara.',
+        title: 'Rendimiento',
+        text: 'Cada imagen se reduce al 25 % y se analiza una de cada dos, para que funcione en tiempo real en un portátil.',
       },
       {
-        title: 'Visor',
-        text: 'Una web en Angular abre el CSV y lo procesa solo en el navegador, sin enviarlo a ningún servidor.',
+        title: 'Registro y visor',
+        text: 'Un CSV por día con una entrada por persona. Una web en Angular abre el CSV y lo procesa solo en el navegador.',
+      },
+      {
+        title: 'Uso responsable',
+        text: 'Las caras son datos biométricos protegidos por el RGPD. Un uso real necesitaría consentimiento explícito, almacenamiento cifrado y una política de conservación. Es una demo técnica con fotos públicas.',
       },
     ],
-    stack: ['Python', 'OpenCV', 'face_recognition', 'Angular'],
+    stack: ['Python', 'OpenCV', 'face_recognition', 'NumPy', 'Angular'],
     repo: 'https://github.com/mmartinezvaras/Reconocimiento_Facial',
+  },
+  {
+    slug: 'hdfs-docker',
+    name: 'Clúster HDFS en Docker',
+    area: 'Big Data',
+    status: 'Práctica del curso',
+    problem: 'Para practicar Big Data hace falta un clúster de varias máquinas, y montarlo de verdad es caro.',
+    impact: {
+      value: '4 nodos',
+      label: 'Un clúster Hadoop (1 nodo principal y 3 de datos) que arranca en un ordenador con Docker.',
+    },
+    how:
+      'El entorno lo proporcionó el curso: Docker levanta varias «máquinas» que se reparten los ficheros como en un clúster real. Sobre él hice las prácticas de análisis de datos con pandas.',
+    tech: [
+      {
+        title: 'Entorno (del curso)',
+        text: 'Hadoop 3.4.2 en Docker Compose: un NameNode y tres DataNodes, con replicación 2 y bloques de 16 MB.',
+      },
+      {
+        title: 'Prácticas',
+        text: 'Análisis exploratorio con pandas y Matplotlib en notebooks sobre datos de clientes.',
+      },
+    ],
+    stack: ['Hadoop HDFS', 'Docker', 'pandas', 'Matplotlib', 'Jupyter'],
+    repo: 'https://github.com/mmartinezvaras/s_aprendizaje',
   },
   {
     slug: 'tfg-restaurante',
@@ -220,54 +261,81 @@ export const projects: Project[] = [
     problem: 'En un restaurante lleno, esperar para pedir y para pagar es lo que más molesta.',
     impact: {
       value: 'Pide y paga sin esperar',
-      label: 'El cliente pide desde la web, paga todo junto o por separado, y el camarero valida el pago con un código QR.',
+      label: 'Los comensales se unen a una mesa con un código, piden juntos y cada uno paga lo suyo. El camarero valida el pago con un QR.',
     },
     how:
-      'Una web en la que el cliente entra con su nombre, elige del menú, revisa su pedido y paga. Por detrás, un servidor guarda salas, mesas, productos y pedidos en una base de datos.',
+      'Cada comensal entra con su nombre y el código de la mesa. El pedido es compartido, pero cada plato guarda quién lo pidió, así que la cuenta se divide por persona. Un servidor guarda todo en una base de datos.',
     tech: [
       {
         title: 'Web',
-        text: 'Angular 21 con renderizado en servidor: menú por categorías con buscador, carrito, pago y factura en PDF.',
+        text: 'Angular 21 con renderizado en servidor y PrimeNG: menú por categorías con buscador, carrito que se actualiza cada 12 segundos, pago y factura en PDF.',
+      },
+      {
+        title: 'Pago seguro',
+        text: 'La factura viaja en un QR codificado en Base64-URL con un token aleatorio de 192 bits, que el camarero escanea para validarla.',
       },
       {
         title: 'Servidor',
-        text: 'API REST en Spring Boot (Java) organizada por capas: controladores, servicios y repositorios.',
+        text: 'API REST en Spring Boot 4 (Java 25) por capas: controladores, servicios y repositorios. Incluye un simulador de cocina que revisa los pedidos pendientes.',
       },
       {
         title: 'Datos',
-        text: 'Base de datos MySQL con salas, mesas, productos, pedidos y usuarios, gestionada con Spring Data JPA.',
+        text: 'MySQL con Spring Data JPA. Entidades: Sala (la mesa compartida), Persona, Item, Pedido y ListaPedido (cada línea del pedido con quién la pidió).',
       },
     ],
-    stack: ['Angular', 'TypeScript', 'Spring Boot', 'Java', 'MySQL'],
+    stack: ['Angular', 'PrimeNG', 'Spring Boot', 'Java', 'MySQL'],
+    next: [
+      'Sustituir el sondeo cada 12 segundos por WebSockets o Server-Sent Events para actualizar el carrito al instante.',
+      'Integrar un pago real (Stripe en modo de pruebas) y firmar el contenido del QR.',
+      'Un panel de cocina para el personal en lugar del simulador.',
+    ],
     repo: 'https://github.com/mmartinezvaras/TFGangular',
   },
   {
     slug: 'gestion-reventa',
-    name: 'Panel de gestión para reventa',
+    name: 'Panel de reventa de auriculares',
     area: 'Desarrollo',
     problem:
-      'Si compras y revendes productos, controlar el stock y saber cuánto ganas con cada uno en hojas sueltas es un caos.',
+      'Revender auriculares en Wallapop, Vinted o eBay parece rentable hasta que sumas envíos, comisiones y lo que no se vende.',
     impact: {
-      value: 'Margen por producto',
-      label: 'Un panel muestra el stock, las ventas y cuánto ganas con cada producto.',
+      value: 'Margen real por producto',
+      label: 'Un panel muestra el stock, las ventas y cuánto ganas de verdad con cada producto, con todos los gastos descontados.',
     },
     how:
-      'Una web para dar de alta productos, tiendas y ventas, conectada a un servidor que comprueba los datos antes de guardarlos para evitar errores.',
+      'Una web para registrar productos, proveedores, compras, ventas (con su plataforma), gastos y movimientos de inventario. El servidor impide vender más unidades de las que hay, aunque dos ventas lleguen a la vez.',
     tech: [
       {
         title: 'Servidor',
-        text: 'Spring Boot por capas (controladores, servicios, repositorios, DTO y mappers), con validación de datos y gestión de errores.',
+        text: 'Java 21 y Spring Boot 3.4: 64 endpoints en 11 controladores, por capas (servicios, repositorios, DTO y mappers), con validación y gestión de errores. El dinero se calcula con BigDecimal.',
+      },
+      {
+        title: 'Stock sin errores',
+        text: 'Bloqueo pesimista (SELECT … FOR UPDATE) al vender, y un libro de inventario en el que solo se añaden movimientos, nunca se borran: cada cifra de stock se puede auditar.',
+      },
+      {
+        title: 'Rentabilidad',
+        text: 'Simulador de rentabilidad con ROI y punto de equilibrio en precio y en unidades.',
+      },
+      {
+        title: 'Datos y calidad',
+        text: 'MySQL con 11 tablas y 34 restricciones CHECK. 26 tests con JUnit 5 y Mockito.',
       },
       {
         title: 'Web',
-        text: 'Angular con PrimeNG, formularios reactivos y TypeScript estricto.',
-      },
-      {
-        title: 'Datos',
-        text: 'Base de datos MySQL con datos de ejemplo para empezar.',
+        text: 'Angular con PrimeNG, gráficos con Chart.js y formularios reactivos.',
       },
     ],
-    stack: ['Java', 'Spring Boot', 'JPA / Hibernate', 'MySQL', 'Angular', 'PrimeNG'],
+    stack: ['Java', 'Spring Boot', 'MySQL', 'Angular', 'JUnit 5'],
+    decisions: [
+      'Un único formato de error para toda la API: cada excepción del dominio se traduce a 404, 409 o 400 con mensaje, ruta y hora.',
+      'Interfaz guiada por configuración: productos, proveedores, gastos, inventario y ventas usan un mismo componente, así que añadir una pantalla es configuración, no código.',
+      'Configuración por variables de entorno y zona horaria fijada en Europe/Madrid.',
+    ],
+    next: [
+      'Autenticación con Spring Security y JWT para varios usuarios.',
+      'Migraciones de base de datos con Flyway.',
+      'Tests de integración con Testcontainers, CI y Docker Compose para arrancar con un comando.',
+    ],
     repo: 'https://github.com/mmartinezvaras/consolaAdminProductos',
   },
 ];

@@ -1,7 +1,8 @@
-import { Directive, ElementRef, OnDestroy, OnInit, inject } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, afterNextRender, inject } from '@angular/core';
 
 // Hace aparecer el elemento la primera vez que entra en pantalla (clases .reveal / .in en styles.css).
-// Un solo IntersectionObserver compartido para toda la página.
+// Es progresivo: sin JS nada se oculta (la regla depende de <html class="js">), y lo que ya está
+// en la primera pantalla de la página se muestra al momento, sin animación.
 let observer: IntersectionObserver | null = null;
 
 function shared(): IntersectionObserver | null {
@@ -24,16 +25,21 @@ function shared(): IntersectionObserver | null {
   selector: '[appReveal]',
   host: { class: 'reveal' }
 })
-export class Reveal implements OnInit, OnDestroy {
+export class Reveal implements OnDestroy {
   private el = inject(ElementRef<HTMLElement>).nativeElement as HTMLElement;
 
-  ngOnInit() {
-    const io = shared();
-    if (io) {
-      io.observe(this.el);
-    } else {
-      this.el.classList.add('in');
-    }
+  constructor() {
+    // Se mide cuando el elemento ya está en el DOM y colocado
+    afterNextRender(() => {
+      // Posición respecto al documento: no depende de cuándo el router devuelve el scroll arriba
+      const top = this.el.getBoundingClientRect().top + window.scrollY;
+      const io = shared();
+      if (!io || top < window.innerHeight) {
+        this.el.classList.add('reveal-now', 'in');
+      } else {
+        io.observe(this.el);
+      }
+    });
   }
 
   ngOnDestroy() {

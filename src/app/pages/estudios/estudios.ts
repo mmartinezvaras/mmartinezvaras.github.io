@@ -7,7 +7,7 @@ import { site } from '../../data/site';
   imports: [Reveal],
   template: `
     <section class="wrap pt-12 sm:pt-24">
-      <p appReveal class="eyebrow">Estudios</p>
+      <p appReveal class="eyebrow">Trayectoria</p>
       <h1 appReveal class="display mt-3 max-w-[12ch]" style="--i: 1">Formación y experiencia.</h1>
     </section>
 
@@ -38,7 +38,7 @@ import { site } from '../../data/site';
       </ol>
     </section>
 
-    <section class="wrap mt-14 grid gap-3 sm:mt-20 md:grid-cols-2 md:gap-5">
+    <section class="wrap mt-14 grid gap-3 sm:mt-20 md:grid-flow-col md:auto-cols-fr md:gap-5">
       <div appReveal class="panel px-6 py-7 sm:p-8">
         <h2 class="text-2xl">Idiomas</h2>
         <ul class="mt-4">
@@ -50,18 +50,17 @@ import { site } from '../../data/site';
           }
         </ul>
       </div>
-      <div appReveal class="panel px-6 py-7 sm:p-8" style="--i: 1">
-        <h2 class="text-2xl">Certificaciones</h2>
-        @if (site.certifications.length) {
+      <!-- Solo aparece cuando hay alguna certificación en site.ts -->
+      @if (site.certifications.length) {
+        <div appReveal class="panel px-6 py-7 sm:p-8" style="--i: 1">
+          <h2 class="text-2xl">Certificaciones</h2>
           <ul class="mt-4">
             @for (c of site.certifications; track c.title) {
               <li class="border-t py-3">{{ c.title }} <span class="text-muted">· {{ c.issuer }} · {{ c.year }}</span></li>
             }
           </ul>
-        } @else {
-          <p class="mt-4 border-t pt-3 text-muted">Próximamente.</p>
-        }
-      </div>
+        </div>
+      }
     </section>
   `
 })

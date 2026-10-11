@@ -16,7 +16,7 @@ import { notes } from '../../data/notes';
       @for (n of notes; track n.slug) {
         <article appReveal class="mx-auto max-w-[42rem] border-t py-10 sm:py-14">
           <p class="text-sm text-muted">
-            <time>{{ n.date }}</time> · {{ n.tags.join(' · ') }}
+            <time [attr.datetime]="n.isoDate">{{ n.date }}</time> · {{ n.tags.join(' · ') }}
           </p>
           <h2 class="mt-3 text-[clamp(1.75rem,5vw,2.5rem)]">{{ n.title }}</h2>
           <p class="lead mt-4">{{ n.summary }}</p>

@@ -3,6 +3,7 @@ export interface Note {
   slug: string;
   title: string;
   date: string;
+  isoDate: string; // AAAA-MM-DD, para el atributo datetime
   tags: string[];
   summary: string;
   body: string[];
@@ -13,6 +14,7 @@ export const notes: Note[] = [
     slug: 'agente-local-ollama-opencode',
     title: 'Montar un agente de programación local y gratuito en una RTX 3060',
     date: '4 oct 2026',
+    isoDate: '2026-10-04',
     tags: ['IA generativa', 'Ollama', 'Agentes'],
     summary:
       'Qué funcionó y qué no al ejecutar un agente de programación con modelos locales, sin pagar por tokens.',

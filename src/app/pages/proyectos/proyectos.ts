@@ -1,4 +1,4 @@
-import { Component, ElementRef, computed, signal, viewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, computed, inject, signal, viewChild } from '@angular/core';
 import { Reveal } from '../../core/reveal';
 import { ProjectCard } from '../../core/ui/project-card';
 import { Area, areas, projects } from '../../data/projects';
@@ -32,9 +32,9 @@ import { Area, areas, projects } from '../../data/projects';
     @if (rest().length) {
       <section class="wrap mt-16 sm:mt-24" aria-labelledby="otros">
         <h2 appReveal id="otros" class="text-[clamp(1.75rem,5vw,3rem)]">
-          {{ featured() ? 'Más proyectos.' : (selected() ?? 'Proyectos') + '.' }}
+          {{ featured() ? 'Datos e IA.' : (selected() ?? 'Proyectos') + '.' }}
         </h2>
-        <ul #rail appReveal class="rail mt-8" style="--i: 1" (scroll)="onScroll()" aria-label="Proyectos, desliza para ver más">
+        <ul #rail appReveal class="rail mt-8" style="--i: 1" (scroll)="onScroll()" [attr.aria-label]="isRail() ? 'Proyectos, desliza para ver más' : 'Proyectos'">
           @for (p of rest(); track p.slug) {
             <li><app-project-card [project]="p" /></li>
           }
@@ -48,6 +48,19 @@ import { Area, areas, projects } from '../../data/projects';
         }
       </section>
     }
+
+    <!-- Secundario: aplicaciones completas con Java y Angular, fuera del foco de datos e IA -->
+    @if (web().length) {
+      <section class="wrap mt-16 sm:mt-24" aria-labelledby="web">
+        <h2 appReveal id="web" class="text-[clamp(1.5rem,4vw,2.25rem)]">Desarrollo web y backend.</h2>
+        <p appReveal class="mt-3 max-w-2xl text-muted" style="--i: 1">Aplicaciones completas con Java, Spring Boot y Angular.</p>
+        <ul class="card-grid mt-8 grid gap-3 md:grid-cols-2 md:gap-5">
+          @for (p of web(); track p.slug; let i = $index) {
+            <li appReveal [style.--i]="i"><app-project-card [project]="p" /></li>
+          }
+        </ul>
+      </section>
+    }
   `
 })
 export default class Proyectos {
@@ -55,12 +68,24 @@ export default class Proyectos {
   selected = signal<Area | null>(null);
   current = signal(0);
 
+  // Por debajo de 768px el carril es un carrusel horizontal; por encima, una rejilla
+  private mq = window.matchMedia('(max-width: 767px)');
+  isRail = signal(this.mq.matches);
+
+  constructor() {
+    const update = () => this.isRail.set(this.mq.matches);
+    this.mq.addEventListener('change', update);
+    inject(DestroyRef).onDestroy(() => this.mq.removeEventListener('change', update));
+  }
+
   private visible = computed(() => {
     const a = this.selected();
     return a ? projects.filter((p) => p.area === a) : projects;
   });
   featured = computed(() => this.visible().find((p) => p.featured));
-  rest = computed(() => this.visible().filter((p) => !p.featured));
+  // Con "Todos", los de Desarrollo van en su propia sección secundaria
+  rest = computed(() => this.visible().filter((p) => !p.featured && (this.selected() !== null || p.area !== 'Desarrollo')));
+  web = computed(() => (this.selected() === null ? this.visible().filter((p) => p.area === 'Desarrollo') : []));
   count = computed(() => {
     const n = this.visible().length;
     return n === 1 ? '1 proyecto' : n + ' proyectos';

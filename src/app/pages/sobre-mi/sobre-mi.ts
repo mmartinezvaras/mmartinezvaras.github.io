@@ -15,7 +15,7 @@ import { site } from '../../data/site';
       </div>
       <figure appReveal class="order-first flex items-center gap-4 md:order-none md:flex-col md:items-end md:text-right" style="--i: 1">
         <img src="avatar.webp" width="237" height="237" alt="Retrato de Marcos María Martínez Varas"
-             class="avatar size-20 md:size-36" loading="lazy" />
+             class="avatar size-20 md:size-36" fetchpriority="high" />
         <figcaption class="text-sm text-muted">{{ site.location }}<br />{{ site.availability }}</figcaption>
       </figure>
     </section>

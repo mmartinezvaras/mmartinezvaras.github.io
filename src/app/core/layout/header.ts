@@ -10,23 +10,23 @@ import { allLinks } from './nav';
   template: `
     <header class="glass sticky top-0 z-30 pt-[var(--safe-top)] shadow-[0_0.5px_0_var(--line)]" style="view-transition-name: header">
       <div class="wrap flex h-13 items-center justify-between gap-6">
-        <a routerLink="/inicio" class="-mx-2 flex min-h-11 items-center rounded-lg px-2 text-[0.9375rem] font-semibold tracking-tight">
+        <a routerLink="/inicio" class="brand -mx-2 flex min-h-11 items-center whitespace-nowrap rounded-lg px-2 text-[0.9375rem] font-semibold tracking-tight">
           {{ site.name }}
         </a>
 
         <div class="flex items-center gap-2">
-          <nav aria-label="Principal" class="hidden md:block">
+          <nav aria-label="Principal" class="hidden lg:block">
             <ul class="flex items-center gap-1 text-sm">
               @for (link of links; track link.path) {
                 <li>
-                  <a class="navlink flex min-h-11 items-center rounded-lg px-3" [routerLink]="link.path"
+                  <a class="navlink flex min-h-11 items-center whitespace-nowrap rounded-lg px-3" [routerLink]="link.path"
                      routerLinkActive="active" ariaCurrentWhenActive="page">{{ link.label }}</a>
                 </li>
               }
             </ul>
           </nav>
 
-          <button type="button" class="btn -mr-2 size-11 p-0 text-muted"
+          <button type="button" class="btn icon-btn -mr-2 size-11 p-0 text-muted"
                   [attr.aria-label]="theme.dark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
                   (click)="theme.toggle()">
             @if (theme.dark()) {

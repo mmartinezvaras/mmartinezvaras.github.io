@@ -2,17 +2,34 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Marcos María Martínez Varas · Big Data e IA</title>
-  <meta name="description" content="Portfolio de Marcos María Martínez Varas, estudiante de Big Data, IA aplicada e IA generativa. Proyectos con RAG, PySpark, Databricks y machine learning.">
+  <title>Marcos María Martínez Varas · Junior Data & AI Engineer</title>
+  <meta name="description" content="Portfolio de Marcos María Martínez Varas, Junior Data & AI Engineer en Madrid. Proyectos de IA generativa (RAG con LangChain), machine learning con scikit-learn y Big Data.">
+  <!-- Canonical y og:url de /inicio/: deploy.yml los reescribe en la copia de cada ruta y el TitleStrategy los actualiza al navegar -->
+  <link rel="canonical" href="https://mmartinezvaras.github.io/inicio/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Marcos María Martínez Varas">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Marcos María Martínez Varas · Junior Data & AI Engineer">
+  <meta property="og:description" content="Proyectos de IA generativa, machine learning y Big Data, con el problema, el resultado y el código de cada uno.">
+  <meta property="og:url" content="https://mmartinezvaras.github.io/inicio/">
+  <meta property="og:image" content="https://mmartinezvaras.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Marcos María Martínez Varas, Junior Data & AI Engineer">
+  <meta name="twitter:card" content="summary_large_image">
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <!-- Aplica el tema antes de pintar para que no haya destello claro/oscuro -->
   <script>
     (function () {
+      // Marca que hay JS: solo entonces se ocultan los elementos que aparecen al hacer scroll
+      document.documentElement.classList.add('js');
       var saved = null;
       try { saved = localStorage.getItem('theme'); } catch (e) {}
       var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;

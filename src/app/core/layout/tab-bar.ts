@@ -12,7 +12,7 @@ import { primaryLinks, secondaryLinks } from './nav';
   selector: 'app-tab-bar',
   imports: [RouterLink],
   template: `
-    <nav aria-label="Secciones" class="tabbar glass md:hidden">
+    <nav aria-label="Secciones" class="tabbar glass lg:hidden">
       <ul class="flex">
         @for (link of links; track link.path; let i = $index) {
           <li class="flex flex-1">
@@ -42,7 +42,7 @@ import { primaryLinks, secondaryLinks } from './nav';
       </ul>
     </nav>
 
-    <dialog #sheet class="sheet md:hidden" aria-labelledby="sheet-title"
+    <dialog #sheet class="sheet lg:hidden" aria-labelledby="sheet-title"
             (cancel)="$event.preventDefault(); close()" (click)="onBackdrop($event)">
       <div class="sheet-grip" (pointerdown)="dragStart($event)" (pointermove)="dragMove($event)"
            (pointerup)="dragEnd($event)" (pointercancel)="dragEnd($event)">

@@ -28,7 +28,7 @@ import { projects } from '../../data/projects';
             </a>
             @if (p.demo) {
               <a class="btn btn-ghost" [href]="p.demo" target="_blank" rel="noopener">
-                Ver demo <span aria-hidden="true">↗</span><span class="sr-only">(se abre en otra pestaña)</span>
+                Probar la demo <span aria-hidden="true">↗</span><span class="sr-only">(se abre en otra pestaña)</span>
               </a>
             }
           </div>
@@ -50,6 +50,36 @@ import { projects } from '../../data/projects';
             <p class="max-w-[62ch] text-[1.125rem] leading-relaxed">{{ p.how }}</p>
           </div>
         </section>
+
+        @if (p.image; as img) {
+          <figure appReveal class="wrap mt-12">
+            <img [src]="img.src" [alt]="img.alt" [width]="img.width" [height]="img.height" loading="lazy" decoding="async"
+                 class="h-auto w-full rounded-[1.25rem] shadow-[0_0_0_1px_var(--line)]" />
+            <figcaption class="mt-3 text-sm text-muted">{{ img.alt }}</figcaption>
+          </figure>
+        }
+
+        @if (p.decisions?.length) {
+          <section class="wrap mt-12" aria-labelledby="decisiones">
+            <div appReveal class="grid gap-4 md:grid-cols-[14rem_1fr] md:gap-10">
+              <h2 id="decisiones" class="text-[1.5rem]">Decisiones clave</h2>
+              <ul class="max-w-[62ch] space-y-3 text-[1.0625rem] leading-relaxed">
+                @for (d of p.decisions; track d) { <li class="flex gap-3"><span aria-hidden="true" class="text-muted">—</span><span>{{ d }}</span></li> }
+              </ul>
+            </div>
+          </section>
+        }
+
+        @if (p.next?.length) {
+          <section class="wrap mt-12" aria-labelledby="siguientes">
+            <div appReveal class="grid gap-4 md:grid-cols-[14rem_1fr] md:gap-10">
+              <h2 id="siguientes" class="text-[1.5rem]">Limitaciones y siguientes pasos</h2>
+              <ul class="max-w-[62ch] space-y-3 text-[1.0625rem] leading-relaxed text-muted">
+                @for (n of p.next; track n) { <li class="flex gap-3"><span aria-hidden="true">—</span><span>{{ n }}</span></li> }
+              </ul>
+            </div>
+          </section>
+        }
 
         <!-- 4. Para técnicos: plegado y discreto -->
         <section class="wrap mt-10" aria-label="Detalles técnicos">
@@ -80,7 +110,7 @@ import { projects } from '../../data/projects';
         </section>
 
         <!-- En móvil deja hueco para la barra fija de GitHub -->
-        <nav class="wrap mt-14 pb-20 md:pb-0" aria-label="Otros proyectos">
+        <nav class="wrap mt-14 pb-20 lg:pb-0" aria-label="Otros proyectos">
           <div class="grid gap-3 sm:grid-cols-2">
             @if (prev(); as q) {
               <a class="card block px-6 py-5" [routerLink]="['/proyectos', q.slug]">
@@ -100,7 +130,7 @@ import { projects } from '../../data/projects';
       </article>
 
       <!-- Móvil: el enlace al código siempre a mano cuando el botón de arriba ya no se ve -->
-      <div class="cta-bar glass md:hidden" [attr.data-on]="showBar()" [attr.aria-hidden]="!showBar()" [attr.inert]="showBar() ? null : ''">
+      <div class="cta-bar glass lg:hidden" [attr.data-on]="showBar()" [attr.aria-hidden]="!showBar()" [attr.inert]="showBar() ? null : ''">
         <div class="wrap flex items-center gap-3 py-2">
           <p class="min-w-0 flex-1 truncate text-sm text-muted">{{ p.name }}</p>
           <a class="btn btn-solid shrink-0" [href]="p.repo" target="_blank" rel="noopener">

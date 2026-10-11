@@ -8,7 +8,7 @@ export interface NavLink {
 export const primaryLinks: NavLink[] = [
   { path: '/inicio', label: 'Inicio' },
   { path: '/proyectos', label: 'Proyectos' },
-  { path: '/estudios', label: 'Experiencia' },
+  { path: '/estudios', label: 'Trayectoria' },
   { path: '/contacto', label: 'Contacto' }
 ];
 

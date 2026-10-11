@@ -12,19 +12,23 @@ import { site } from '../../data/site';
     <section class="wrap pb-20 pt-10 sm:pb-28 sm:pt-24">
       <img appReveal src="avatar.webp" width="237" height="237" alt="Retrato de Marcos"
            class="avatar mb-7 size-20 sm:size-24" fetchpriority="high" />
-      <p appReveal class="eyebrow">{{ site.role }}</p>
-      <h1 appReveal class="mt-4 text-[clamp(3rem,12vw,7.5rem)] leading-[0.98] tracking-[-0.045em]" style="--i: 1">
+      <h1 appReveal class="text-[clamp(3rem,12vw,7.5rem)] leading-[1.02] tracking-[-0.02em]" style="--i: 1">
         <span class="block">{{ first }}</span>
         <span class="block text-muted">{{ last }}</span>
       </h1>
-      <p appReveal class="mt-8 max-w-2xl text-[clamp(1.5rem,4vw,2.25rem)] font-semibold leading-tight tracking-[-0.025em]" style="--i: 2">
-        {{ site.tagline }}
+      <!-- Rol objetivo y foco en una línea: lo primero que busca un reclutador -->
+      <p appReveal class="mt-6 text-[clamp(1.375rem,3.4vw,2rem)] font-semibold leading-tight tracking-[-0.02em]" style="--i: 2">
+        {{ site.role }} <span class="text-muted">· {{ site.focus }}</span>
       </p>
       <p appReveal class="lead mt-4 max-w-2xl" style="--i: 3">{{ site.intro }}</p>
 
-      <div appReveal class="mt-10 flex flex-col gap-3 min-[420px]:flex-row" style="--i: 4">
-        <a routerLink="/proyectos" class="btn btn-solid">Ver proyectos</a>
-        <a [href]="site.cv" [attr.download]="site.cvFileName" class="btn btn-ghost">Descargar CV</a>
+      <div appReveal class="mt-10 grid gap-3 min-[420px]:flex min-[420px]:flex-wrap" style="--i: 4">
+        <a [href]="site.cv" [attr.download]="site.cvFileName" class="btn btn-solid">Descargar CV</a>
+        <div class="grid grid-cols-3 gap-3 min-[420px]:contents">
+          <a [href]="site.github" target="_blank" rel="noopener" class="btn btn-ghost">GitHub<span class="sr-only"> (se abre en otra pestaña)</span></a>
+          <a [href]="site.linkedin" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn<span class="sr-only"> (se abre en otra pestaña)</span></a>
+          <a [href]="'mailto:' + site.email" class="btn btn-ghost">Email</a>
+        </div>
       </div>
 
       <dl appReveal class="mt-16 grid gap-px overflow-hidden rounded-3xl bg-line sm:grid-cols-3" style="--i: 5">
