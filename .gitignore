@@ -42,3 +42,10 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Herramientas locales (no se suben)
+graphify-out/
+1_prompt_claude_code_CV_y_web.txt
+
+# CV: versión privada con teléfono (solo local)
+cv/out/
