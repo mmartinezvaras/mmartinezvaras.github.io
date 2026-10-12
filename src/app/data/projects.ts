@@ -123,7 +123,7 @@ export const projects: Project[] = [
       },
     ],
     stack: ['Python', 'pandas', 'scikit-learn', 'Jupyter'],
-    repo: 'https://github.com/mmartinezvaras/MLpartidosPremier',
+    repo: 'https://github.com/mmartinezvaras/laliga-match-prediction',
   },
   {
     slug: 'banking-lakehouse',
