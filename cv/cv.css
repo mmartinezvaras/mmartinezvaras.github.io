@@ -1,0 +1,100 @@
+/* CV imprimible en A4. Una columna, texto real (sin imágenes con texto) para que los ATS lo lean. */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-latin.woff2') format('woff2');
+  font-weight: 400 700;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('fonts/JetBrainsMono-latin.woff2') format('woff2');
+  font-weight: 400;
+}
+
+:root {
+  --ink: #1f2328;
+  --muted: #4b5563;
+  --green: #1f7a5c;       /* títulos de sección, como en el CV anterior */
+  --rule: #9fcfbd;        /* líneas separadoras finas */
+  --tint: #eef7f3;
+}
+
+@page { size: A4; margin: 0; }
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font: 400 9.1pt/1.38 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.page {
+  width: 210mm;
+  padding: 10mm 15mm 8mm;
+  margin: 0 auto;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* Cabecera: foto arriba a la izquierda */
+header { display: flex; align-items: center; gap: 6mm; }
+header img { width: 25mm; height: 25mm; object-fit: cover; flex: none; }
+h1 { margin: 0; font-size: 22pt; line-height: 1.1; font-weight: 700; letter-spacing: -0.01em; }
+.headline { margin: 1.6mm 0 0; font-size: 11pt; color: var(--muted); }
+
+.contact {
+  margin: 3mm 0 0;
+  font: 400 8pt/1.6 'JetBrains Mono', Consolas, monospace;
+  color: var(--ink);
+}
+.contact a { text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px; }
+
+.availability {
+  padding: 1.3mm 3mm;
+  margin-top: 2.6mm;
+  background: var(--tint);
+  border-left: 2px solid var(--green);
+  font-size: 9.3pt;
+}
+.availability strong { color: var(--green); }
+
+/* Teléfono: solo en la versión privada (build.mjs añade ?private) */
+.phone { display: none; }
+.private .phone { display: inline; }
+
+section { margin-top: 2.6mm; padding-top: 2.2mm; border-top: 0.6pt solid var(--rule); }
+section[hidden] { display: none; }
+h2 {
+  margin: 0 0 1mm;
+  font-size: 10.5pt;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+p { margin: 0; }
+ul { margin: 0; padding-left: 4.5mm; }
+li { margin: 0.3mm 0; }
+
+/* Entrada con fecha a la derecha (experiencia y formación) */
+.entry + .entry { margin-top: 1mm; }
+.row { display: flex; justify-content: space-between; gap: 4mm; }
+.row .date { flex: none; color: var(--muted); }
+.entry ul { margin-top: 0.6mm; }
+
+.project + .project { margin-top: 1.2mm; }
+.project .stack { color: var(--muted); }
+.badge { color: var(--green); font-weight: 600; }
+.repos { margin-bottom: 1mm; color: var(--muted); }
+
+.skills p + p { margin-top: 0.5mm; }
+.skills strong, .label { font-weight: 600; }
+
+@media screen {
+  body { background: #e5e7eb; }
+  .page { background: #fff; margin: 8mm auto; box-shadow: 0 2px 12px rgb(0 0 0 / 0.12); }
+}
+.nowrap { white-space: nowrap; }
