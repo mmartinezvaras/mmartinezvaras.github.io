@@ -5,14 +5,16 @@ export const site = {
   focus: 'Big Data e IA generativa',
   tagline: 'Convierto datos en decisiones.',
   intro:
-    'Técnico Superior en DAM con prácticas en Minsait (Indra Group) y estudiante del máster en Big Data, IA aplicada e IA generativa de U-tad. Construyo pipelines de datos y aplicaciones con IA generativa, y estoy aprendiendo COBOL para conectar los sistemas de siempre con la tecnología de hoy.',
+    'Técnico Superior en DAM con prácticas en Minsait (Indra Group) y estudiante del máster en Big Data, IA aplicada e IA generativa de U-tad. Estoy construyendo un pipeline de datos con PySpark y Delta Lake y aplicaciones con IA generativa, y aprendiendo COBOL para conectar los sistemas de siempre con la tecnología de hoy.',
   cv: 'Marcos_Maria_Martinez_Varas_BigData_IA.pdf',
   // Nombre con el que se guarda el CV al descargarlo
   cvFileName: 'Marcos_Maria_Martinez_Varas_BigData_IA.pdf',
+  cvEn: 'Marcos_Maria_Martinez_Varas_BigData_IA_EN.pdf',
+  cvEnFileName: 'Marcos_Maria_Martinez_Varas_BigData_IA_EN.pdf',
   location: 'Madrid, España',
   seeking:
-    'Busco prácticas o mi primer empleo en datos, IA o modernización de sistemas. En remoto, presencial o en otro país.',
-  availability: 'Disponibilidad inmediata',
+    'Busco prácticas o mi primer empleo como junior de datos (Data Engineer, BI o ETL), también en proyectos de IA generativa o modernización de sistemas.',
+  availability: 'Disponible ya por las mañanas (hasta las 15:00) · Jornada completa desde junio de 2027',
   email: 'mmartinezvaras@icloud.com',
   github: 'https://github.com/mmartinezvaras',
   linkedin: 'https://www.linkedin.com/in/marcos-mar%C3%ADa-mart%C3%ADnez-varas-b5156b3a3/',
@@ -47,9 +49,9 @@ export const site = {
   experience: [
     {
       period: 'Mar – Jun 2026',
-      title: 'Prácticas de tecnología · 4 meses',
+      title: 'Prácticas de desarrollo · 4 meses',
       company: 'Minsait (Indra Group)',
-      text: 'Trabajé dentro de un equipo de desarrollo profesional, con sus flujos de trabajo reales, aplicando lo aprendido en el ciclo DAM.',
+      text: 'Desarrollo front-end con Angular, Tailwind CSS y JavaScript y tareas de back-end con Java y Spring Boot, dentro de un equipo de desarrollo profesional y con sus flujos reales: Git, revisiones y entregas por tareas.',
     },
   ],
   certifications: [] as { title: string; issuer: string; year: string }[],
@@ -58,7 +60,7 @@ export const site = {
     { name: 'Inglés', level: 'C2 · LanguageCert' },
   ],
   extras: [
-    'Disponibilidad inmediata',
+    'Disponible ya por las mañanas (hasta las 15:00) · Jornada completa desde junio de 2027',
     'Carnet de conducir',
     'Experiencia dirigiendo un equipo de fútbol: liderazgo y organización',
   ],
@@ -74,7 +76,8 @@ export const site = {
     },
     {
       category: 'Big Data',
-      items: ['Spark', 'Hadoop HDFS'].map((name) => ({ name, learning: false })),
+      // Spark y HDFS en aprendizaje hasta terminar el pipeline PySpark de banking-lakehouse
+      items: ['Spark', 'Hadoop HDFS'].map((name) => ({ name, learning: true })),
     },
     {
       category: 'Datos y backend',
@@ -86,7 +89,7 @@ export const site = {
     },
     {
       category: 'Lenguajes y front-end',
-      items: ['Python', 'Java', 'TypeScript', 'Angular', 'PrimeNG', 'HTML', 'CSS'].map((name) => ({ name, learning: false })),
+      items: ['Python', 'Java', 'TypeScript', 'JavaScript', 'Angular', 'Tailwind CSS', 'PrimeNG', 'HTML', 'CSS'].map((name) => ({ name, learning: false })),
     },
     {
       category: 'Visión por computador',

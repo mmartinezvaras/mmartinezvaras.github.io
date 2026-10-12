@@ -12,6 +12,7 @@ import { site } from '../../data/site';
           <li><a [href]="site.github" target="_blank" rel="noopener" class="pill">GitHub<span class="sr-only"> (se abre en otra pestaña)</span></a></li>
           <li><a [href]="site.linkedin" target="_blank" rel="noopener" class="pill">LinkedIn<span class="sr-only"> (se abre en otra pestaña)</span></a></li>
           <li><a [href]="site.cv" [attr.download]="site.cvFileName" class="pill">Descargar CV</a></li>
+          <li><a [href]="site.cvEn" [attr.download]="site.cvEnFileName" hreflang="en" lang="en" class="pill">CV in English</a></li>
         </ul>
       </div>
     </footer>

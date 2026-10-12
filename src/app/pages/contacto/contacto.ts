@@ -32,7 +32,10 @@ import { site } from '../../data/site';
           <div appReveal class="panel flex flex-1 flex-col px-6 py-8 sm:p-8" style="--i: 1">
             <h2 class="text-2xl">Mi CV</h2>
             <p class="mb-6 mt-2 text-muted">Una página con formación, experiencia, proyectos y habilidades.</p>
-            <a [href]="site.cv" [attr.download]="site.cvFileName" class="btn btn-solid mt-auto self-start">Descargar CV (PDF)</a>
+            <div class="mt-auto flex flex-wrap gap-3">
+              <a [href]="site.cv" [attr.download]="site.cvFileName" class="btn btn-solid">Descargar CV (PDF)</a>
+              <a [href]="site.cvEn" [attr.download]="site.cvEnFileName" hreflang="en" lang="en" class="btn btn-ghost">CV in English</a>
+            </div>
           </div>
         </div>
 

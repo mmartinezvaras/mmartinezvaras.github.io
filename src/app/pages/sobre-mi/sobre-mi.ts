@@ -37,9 +37,10 @@ import { site } from '../../data/site';
         <div>
           <h2 id="busco" class="text-[clamp(1.75rem,5vw,3rem)]">Qué busco.</h2>
           <p class="lead mt-4">{{ site.seeking }}</p>
-          <div class="mt-8 flex flex-col gap-3 min-[420px]:flex-row">
+          <div class="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap">
             <a routerLink="/contacto" class="btn btn-solid">Contactar</a>
             <a [href]="site.cv" [attr.download]="site.cvFileName" class="btn btn-ghost">Descargar CV</a>
+            <a [href]="site.cvEn" [attr.download]="site.cvEnFileName" hreflang="en" lang="en" class="btn btn-ghost">CV in English</a>
           </div>
         </div>
         <ul class="self-end border-t md:border-t-0">
