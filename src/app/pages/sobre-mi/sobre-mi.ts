@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { I18n } from '../../core/i18n';
 import { Reveal } from '../../core/reveal';
 import { site } from '../../data/site';
 
@@ -9,24 +10,24 @@ import { site } from '../../data/site';
   template: `
     <section class="wrap grid gap-10 pt-12 sm:pt-24 md:grid-cols-[1fr_auto] md:items-end">
       <div>
-        <p appReveal class="eyebrow">Sobre mí</p>
-        <h1 appReveal class="display mt-3 max-w-[13ch]" style="--i: 1">Datos, IA y sistemas que duran.</h1>
-        <p appReveal class="lead mt-6 max-w-3xl" style="--i: 2">{{ site.intro }}</p>
+        <p appReveal class="eyebrow">{{ t(text.eyebrow) }}</p>
+        <h1 appReveal class="display mt-3 max-w-[13ch]" style="--i: 1">{{ t(text.title) }}</h1>
+        <p appReveal class="lead mt-6 max-w-3xl" style="--i: 2">{{ t(site.intro) }}</p>
       </div>
       <figure appReveal class="order-first flex items-center gap-4 md:order-none md:flex-col md:items-end md:text-right" style="--i: 1">
-        <img src="avatar.webp" width="237" height="237" alt="Retrato de Marcos María Martínez Varas"
+        <img src="avatar.webp" width="237" height="237" [alt]="t(text.portrait)"
              class="avatar size-20 md:size-36" fetchpriority="high" />
-        <figcaption class="text-sm text-muted">{{ site.location }}<br />{{ site.availability }}</figcaption>
+        <figcaption class="text-sm text-muted">{{ t(site.location) }}<br />{{ t(site.availability) }}</figcaption>
       </figure>
     </section>
 
     <section class="wrap mt-16 sm:mt-24" aria-labelledby="intereses">
-      <h2 appReveal id="intereses" class="text-[clamp(1.75rem,5vw,3rem)]">Qué me mueve.</h2>
+      <h2 appReveal id="intereses" class="text-[clamp(1.75rem,5vw,3rem)]">{{ t(text.drives) }}</h2>
       <ul class="mt-8 grid gap-3 md:grid-cols-3 md:gap-5">
-        @for (item of site.interests; track item.title; let i = $index) {
+        @for (item of site.interests; track $index; let i = $index) {
           <li appReveal class="panel px-6 py-7 sm:p-8" [style.--i]="i">
-            <h3 class="text-2xl">{{ item.title }}</h3>
-            <p class="mt-3 text-muted">{{ item.text }}</p>
+            <h3 class="text-2xl">{{ t(item.title) }}</h3>
+            <p class="mt-3 text-muted">{{ t(item.text) }}</p>
           </li>
         }
       </ul>
@@ -35,19 +36,19 @@ import { site } from '../../data/site';
     <section class="wrap mt-16 sm:mt-24" aria-labelledby="busco">
       <div appReveal class="panel grid gap-8 px-6 py-10 sm:p-14 md:grid-cols-[1.3fr_1fr] md:gap-16">
         <div>
-          <h2 id="busco" class="text-[clamp(1.75rem,5vw,3rem)]">Qué busco.</h2>
-          <p class="lead mt-4">{{ site.seeking }}</p>
+          <h2 id="busco" class="text-[clamp(1.75rem,5vw,3rem)]">{{ t(text.seeking) }}</h2>
+          <p class="lead mt-4">{{ t(site.seeking) }}</p>
           <div class="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap">
-            <a routerLink="/contacto" class="btn btn-solid">Contactar</a>
-            <a [href]="site.cv" [attr.download]="site.cvFileName" class="btn btn-ghost">Descargar CV</a>
-            <a [href]="site.cvEn" [attr.download]="site.cvEnFileName" hreflang="en" lang="en" class="btn btn-ghost">CV in English</a>
+            <a routerLink="/contacto" class="btn btn-solid">{{ t(text.contact) }}</a>
+            <a [href]="i18n.cv().main.href" [attr.download]="i18n.cv().main.file" class="btn btn-ghost">{{ i18n.cv().main.label }}</a>
+            <a [href]="i18n.cv().other.href" [attr.download]="i18n.cv().other.file" [attr.hreflang]="i18n.cv().other.lang" [attr.lang]="i18n.cv().other.lang" class="btn btn-ghost">{{ i18n.cv().other.label }}</a>
           </div>
         </div>
         <ul class="self-end border-t md:border-t-0">
-          @for (e of site.extras; track e) {
+          @for (e of site.extras; track $index) {
             <li class="flex gap-3 border-b py-4 last:border-b-0">
               <svg viewBox="0 0 24 24" class="mt-0.5 size-5 shrink-0 text-fg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
-              <span>{{ e }}</span>
+              <span>{{ t(e) }}</span>
             </li>
           }
         </ul>
@@ -57,4 +58,14 @@ import { site } from '../../data/site';
 })
 export default class SobreMi {
   site = site;
+  i18n = inject(I18n);
+  t = this.i18n.t;
+  text = {
+    eyebrow: { es: 'Sobre mí', en: 'About me' },
+    title: { es: 'Datos, IA y sistemas que duran.', en: 'Data, AI and systems that last.' },
+    portrait: { es: 'Retrato de Marcos María Martínez Varas', en: 'Portrait of Marcos María Martínez Varas' },
+    drives: { es: 'Qué me mueve.', en: 'What drives me.' },
+    seeking: { es: 'Qué busco.', en: "What I'm looking for." },
+    contact: { es: 'Contactar', en: 'Get in touch' },
+  };
 }

@@ -1,6 +1,6 @@
 <a href="#contenido"
    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-[calc(var(--safe-top)+0.75rem)] focus:z-50 focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-bg"
-   (click)="$event.preventDefault(); principal.focus()">Saltar al contenido</a>
+   (click)="$event.preventDefault(); principal.focus()">{{ t(skip) }}</a>
 <!-- En móvil se reserva el alto de la barra de pestañas para que no tape el final de la página -->
 <div class="flex min-h-dvh flex-col pb-[calc(var(--tabbar-h)+var(--safe-bottom))] lg:pb-0">
   <app-header />

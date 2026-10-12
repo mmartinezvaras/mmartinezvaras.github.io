@@ -1,22 +1,24 @@
+import { L } from '../i18n';
+
 // Navegación compartida por la cabecera (escritorio) y la barra de pestañas (móvil).
 export interface NavLink {
   path: string;
-  label: string;
+  label: L;
 }
 
 // Pestañas principales: lo que un reclutador busca primero, al alcance del pulgar.
 export const primaryLinks: NavLink[] = [
-  { path: '/inicio', label: 'Inicio' },
-  { path: '/proyectos', label: 'Proyectos' },
-  { path: '/estudios', label: 'Trayectoria' },
-  { path: '/contacto', label: 'Contacto' }
+  { path: '/inicio', label: { es: 'Inicio', en: 'Home' } },
+  { path: '/proyectos', label: { es: 'Proyectos', en: 'Projects' } },
+  { path: '/estudios', label: { es: 'Trayectoria', en: 'Background' } },
+  { path: '/contacto', label: { es: 'Contacto', en: 'Contact' } }
 ];
 
 // En móvil viven en la hoja "Más".
 export const secondaryLinks: NavLink[] = [
-  { path: '/sobre-mi', label: 'Sobre mí' },
-  { path: '/skills', label: 'Skills' },
-  { path: '/lab', label: 'Lab' }
+  { path: '/sobre-mi', label: { es: 'Sobre mí', en: 'About me' } },
+  { path: '/skills', label: { es: 'Skills', en: 'Skills' } },
+  { path: '/lab', label: { es: 'Lab', en: 'Lab' } }
 ];
 
 // Orden de lectura en escritorio

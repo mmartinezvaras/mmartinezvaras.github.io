@@ -25,7 +25,7 @@
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <!-- Aplica el tema antes de pintar para que no haya destello claro/oscuro -->
+  <!-- Aplica el tema y el idioma antes de pintar para que no haya destello claro/oscuro -->
   <script>
     (function () {
       // Marca que hay JS: solo entonces se ocultan los elementos que aparecen al hacer scroll
@@ -34,6 +34,15 @@
       try { saved = localStorage.getItem('theme'); } catch (e) {}
       var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (dark) document.documentElement.classList.add('app-dark');
+      // Idioma: ?lang=en|es en la URL (enlace compartible) o la última elección. Español por defecto.
+      var lang = null;
+      try { lang = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+      if (lang === 'en' || lang === 'es') {
+        try { localStorage.setItem('lang', lang); } catch (e) {}
+      } else {
+        try { lang = localStorage.getItem('lang'); } catch (e) {}
+      }
+      if (lang === 'en') document.documentElement.lang = 'en';
     })();
   </script>
 </head>

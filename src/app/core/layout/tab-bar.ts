@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { site } from '../../data/site';
+import { I18n, ui } from '../i18n';
 import { Theme } from '../theme';
 import { primaryLinks, secondaryLinks } from './nav';
 
@@ -12,7 +13,7 @@ import { primaryLinks, secondaryLinks } from './nav';
   selector: 'app-tab-bar',
   imports: [RouterLink],
   template: `
-    <nav aria-label="Secciones" class="tabbar glass lg:hidden">
+    <nav [attr.aria-label]="t(text.sections)" class="tabbar glass lg:hidden">
       <ul class="flex">
         @for (link of links; track link.path; let i = $index) {
           <li class="flex flex-1">
@@ -27,7 +28,7 @@ import { primaryLinks, secondaryLinks } from './nav';
                   @case (3) { <rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m3.5 6.5 8.5 6.5 8.5-6.5" /> }
                 }
               </svg>
-              {{ link.label }}
+              {{ t(link.label) }}
             </a>
           </li>
         }
@@ -36,7 +37,7 @@ import { primaryLinks, secondaryLinks } from './nav';
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <circle cx="5.5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="18.5" cy="12" r="1.6" />
             </svg>
-            Más
+            {{ t(text.more) }}
           </button>
         </li>
       </ul>
@@ -47,15 +48,15 @@ import { primaryLinks, secondaryLinks } from './nav';
       <div class="sheet-grip" (pointerdown)="dragStart($event)" (pointermove)="dragMove($event)"
            (pointerup)="dragEnd($event)" (pointercancel)="dragEnd($event)">
         <span class="sheet-handle" aria-hidden="true"></span>
-        <h2 id="sheet-title" class="text-xl">Más</h2>
+        <h2 id="sheet-title" class="text-xl">{{ t(text.more) }}</h2>
       </div>
 
       <!-- Acciones clave: siempre a un toque de distancia -->
-      <a class="btn btn-solid mt-2 w-full" [href]="site.cv" [attr.download]="site.cvFileName">
+      <a class="btn btn-solid mt-2 w-full" [href]="i18n.cv().main.href" [attr.download]="i18n.cv().main.file">
         <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" /></svg>
-        Descargar CV
+        {{ i18n.cv().main.label }}
       </a>
-      <ul class="mt-3 grid grid-cols-3 gap-2" aria-label="Contacto">
+      <ul class="mt-3 grid grid-cols-3 gap-2" [attr.aria-label]="t(text.contact)">
         <li>
           <a class="action" [href]="'mailto:' + site.email">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m3.5 6.5 8.5 6.5 8.5-6.5" /></svg>
@@ -65,13 +66,13 @@ import { primaryLinks, secondaryLinks } from './nav';
         <li>
           <a class="action" [href]="site.linkedin" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.2 8.6h3v10.2h-3zM6.7 4a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm3.6 4.6h2.9V10h.04c.4-.76 1.4-1.6 2.9-1.6 3.1 0 3.6 2 3.6 4.6v5.8h-3v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7v5.2h-3z" /></svg>
-            LinkedIn<span class="sr-only"> (se abre en otra pestaña)</span>
+            LinkedIn<span class="sr-only"> {{ t(text.newTab) }}</span>
           </a>
         </li>
         <li>
           <a class="action" [href]="site.github" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-3 18.5c.5.1.65-.2.65-.46v-1.6c-2.65.57-3.2-1.27-3.2-1.27-.43-1.1-1.06-1.4-1.06-1.4-.86-.6.07-.58.07-.58.95.07 1.45.98 1.45.98.85 1.45 2.22 1.03 2.76.79.09-.62.33-1.03.6-1.27-2.11-.24-4.33-1.06-4.33-4.7 0-1.04.37-1.89.98-2.55-.1-.24-.42-1.21.09-2.53 0 0 .8-.26 2.62.97a9 9 0 0 1 4.76 0c1.82-1.23 2.62-.97 2.62-.97.51 1.32.19 2.29.1 2.53.6.66.97 1.51.97 2.55 0 3.65-2.22 4.46-4.34 4.7.34.29.65.87.65 1.76v2.6c0 .26.17.56.66.46A9.5 9.5 0 0 0 12 2.5Z" /></svg>
-            GitHub<span class="sr-only"> (se abre en otra pestaña)</span>
+            GitHub<span class="sr-only"> {{ t(text.newTab) }}</span>
           </a>
         </li>
       </ul>
@@ -81,7 +82,7 @@ import { primaryLinks, secondaryLinks } from './nav';
           <li class="border-b">
             <a class="flex min-h-14 items-center justify-between px-4 text-[1.0625rem] transition-colors active:bg-card" [routerLink]="link.path"
                [attr.aria-current]="active() === link.path ? 'page' : null" (click)="close()">
-              {{ link.label }}
+              {{ t(link.label) }}
               <svg viewBox="0 0 24 24" class="size-4 text-muted" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
             </a>
           </li>
@@ -89,19 +90,32 @@ import { primaryLinks, secondaryLinks } from './nav';
         <li>
           <button type="button" class="flex min-h-14 w-full items-center justify-between px-4 text-[1.0625rem] transition-colors active:bg-card"
                   (click)="theme.toggle()">
-            {{ theme.dark() ? 'Modo claro' : 'Modo oscuro' }}
-            <span class="text-sm text-muted">{{ theme.dark() ? 'Ahora: oscuro' : 'Ahora: claro' }}</span>
+            {{ t(theme.dark() ? text.lightMode : text.darkMode) }}
+            <span class="text-sm text-muted">{{ t(theme.dark() ? text.nowDark : text.nowLight) }}</span>
           </button>
         </li>
       </ul>
 
-      <button type="button" class="btn btn-ghost mt-4 w-full" (click)="close()">Cerrar</button>
+      <button type="button" class="btn btn-ghost mt-4 w-full" (click)="close()">{{ t(text.close) }}</button>
     </dialog>
   `
 })
 export class TabBar {
   site = site;
   theme = inject(Theme);
+  i18n = inject(I18n);
+  t = this.i18n.t;
+  text = {
+    ...ui,
+    sections: { es: 'Secciones', en: 'Sections' },
+    more: { es: 'Más', en: 'More' },
+    contact: { es: 'Contacto', en: 'Contact' },
+    lightMode: { es: 'Modo claro', en: 'Light mode' },
+    darkMode: { es: 'Modo oscuro', en: 'Dark mode' },
+    nowDark: { es: 'Ahora: oscuro', en: 'Now: dark' },
+    nowLight: { es: 'Ahora: claro', en: 'Now: light' },
+    close: { es: 'Cerrar', en: 'Close' },
+  };
   links = primaryLinks;
   more = secondaryLinks;
 

@@ -1,6 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Project } from '../../data/projects';
+import { I18n, ui } from '../i18n';
 
 // Tarjeta de proyecto. Orden de lectura pensado para alguien no técnico:
 // 1) el problema, 2) qué consigue (el único elemento en color de acento), 3) cómo está hecho, discreto.
@@ -15,40 +16,40 @@ import { Project } from '../../data/projects';
       <article class="panel featured overflow-hidden px-6 py-9 sm:p-12 lg:p-14">
         <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-center lg:gap-12">
           <div>
-            <p class="badge">Proyecto destacado</p>
-            <p class="eyebrow mt-5">{{ p.name }}</p>
-            <h2 class="mt-2 max-w-[22ch] text-[clamp(1.625rem,4vw,2.5rem)] leading-[1.1]">{{ p.problem }}</h2>
+            <p class="badge">{{ t(text.featured) }}</p>
+            <p class="eyebrow mt-5">{{ t(p.name) }}</p>
+            <h2 class="mt-2 max-w-[22ch] text-[clamp(1.625rem,4vw,2.5rem)] leading-[1.1]">{{ t(p.problem) }}</h2>
 
-            <p class="impact mt-8 text-[clamp(3rem,10vw,4.5rem)] sm:mt-10">{{ p.impact.value }}</p>
-            <p class="mt-3 max-w-md text-[1.1875rem] leading-snug">{{ p.impact.label }}</p>
+            <p class="impact mt-8 text-[clamp(3rem,10vw,4.5rem)] sm:mt-10">{{ t(p.impact.value) }}</p>
+            <p class="mt-3 max-w-md text-[1.1875rem] leading-snug">{{ t(p.impact.label) }}</p>
           </div>
 
           <!-- Lo visual: la demo real funcionando -->
           @if (p.image; as img) {
             <figure class="shot">
-              <img [src]="img.src" [alt]="img.alt" [width]="img.width" [height]="img.height" loading="lazy" decoding="async" />
+              <img [src]="img.src" [alt]="t(img.alt)" [width]="img.width" [height]="img.height" loading="lazy" decoding="async" />
             </figure>
           }
         </div>
 
         <div class="mt-10 grid gap-8 border-t pt-8 md:grid-cols-[1fr_auto] md:items-end md:gap-16">
           <div>
-            <h3 class="text-sm font-semibold text-muted">Cómo está hecho</h3>
-            <p class="mt-2 max-w-2xl text-[0.9375rem] text-muted">{{ p.how }}</p>
+            <h3 class="text-sm font-semibold text-muted">{{ t(text.howBuilt) }}</h3>
+            <p class="mt-2 max-w-2xl text-[0.9375rem] text-muted">{{ t(p.how) }}</p>
             <!-- Como mucho 5 tecnologías; la lista completa está en el detalle -->
-            <ul class="chips mt-4" aria-label="Tecnologías">
-              @for (t of p.stack.slice(0, 5); track t) { <li>{{ t }}</li> }
+            <ul class="chips mt-4" [attr.aria-label]="t(text.tech)">
+              @for (s of p.stack.slice(0, 5); track s) { <li>{{ s }}</li> }
             </ul>
           </div>
           <div class="flex flex-col gap-3 min-[420px]:flex-row md:justify-end">
-            <a class="btn btn-solid" [routerLink]="['/proyectos', p.slug]">Ver el proyecto</a>
+            <a class="btn btn-solid" [routerLink]="['/proyectos', p.slug]">{{ t(text.view) }}</a>
             @if (p.demo) {
               <a class="btn btn-ghost" [href]="p.demo" target="_blank" rel="noopener">
-                Probar la demo <span aria-hidden="true">↗</span><span class="sr-only">: {{ p.name }} (se abre en otra pestaña)</span>
+                {{ t(text.tryDemo) }} <span aria-hidden="true">↗</span><span class="sr-only">: {{ t(p.name) }} {{ t(text.newTab) }}</span>
               </a>
             }
             <a class="btn btn-ghost" [href]="p.repo" target="_blank" rel="noopener">
-              Código en GitHub <span aria-hidden="true">↗</span><span class="sr-only">: {{ p.name }} (se abre en otra pestaña)</span>
+              {{ t(text.code) }} <span aria-hidden="true">↗</span><span class="sr-only">: {{ t(p.name) }} {{ t(text.newTab) }}</span>
             </a>
           </div>
         </div>
@@ -57,24 +58,24 @@ import { Project } from '../../data/projects';
       <!-- 5 filas (nombre · problema · cifra · explicación · pie): en rejilla se alinean entre tarjetas con subgrid -->
       <article class="card tile px-6 py-7 sm:p-8">
         <p class="eyebrow">
-          {{ p.name }}@if (p.status) {<span> · {{ p.status }}</span>}
+          {{ t(p.name) }}@if (p.status) {<span> · {{ t(p.status) }}</span>}
         </p>
         <h3 class="mt-3 text-[1.25rem] leading-[1.22] sm:text-[1.375rem]">
-          <a class="stretched" [routerLink]="['/proyectos', p.slug]">{{ p.problem }}</a>
+          <a class="stretched" [routerLink]="['/proyectos', p.slug]">{{ t(p.problem) }}</a>
         </h3>
-        <p class="tile-value impact pt-8 text-[2.25rem]">{{ p.impact.value }}</p>
-        <p class="mt-2 leading-snug">{{ p.impact.label }}</p>
+        <p class="tile-value impact pt-8 text-[2.25rem]">{{ t(p.impact.value) }}</p>
+        <p class="mt-2 leading-snug">{{ t(p.impact.label) }}</p>
         <div class="tile-foot mt-6 border-t pt-4">
-          <ul class="chips" aria-label="Tecnologías">
-            @for (t of p.stack.slice(0, 5); track t) { <li>{{ t }}</li> }
+          <ul class="chips" [attr.aria-label]="t(text.tech)">
+            @for (s of p.stack.slice(0, 5); track s) { <li>{{ s }}</li> }
           </ul>
           <div class="above mt-2 flex flex-wrap gap-x-6">
             <a class="btn-link inline-flex items-center" [href]="p.repo" target="_blank" rel="noopener">
-              Código en GitHub <span aria-hidden="true">&nbsp;↗</span><span class="sr-only">: {{ p.name }} (se abre en otra pestaña)</span>
+              {{ t(text.code) }} <span aria-hidden="true">&nbsp;↗</span><span class="sr-only">: {{ t(p.name) }} {{ t(text.newTab) }}</span>
             </a>
             @if (p.demo) {
               <a class="btn-link inline-flex items-center" [href]="p.demo" target="_blank" rel="noopener">
-                Demo <span aria-hidden="true">&nbsp;↗</span><span class="sr-only">: {{ p.name }} (se abre en otra pestaña)</span>
+                Demo <span aria-hidden="true">&nbsp;↗</span><span class="sr-only">: {{ t(p.name) }} {{ t(text.newTab) }}</span>
               </a>
             }
           </div>
@@ -86,4 +87,14 @@ import { Project } from '../../data/projects';
 export class ProjectCard {
   project = input.required<Project>();
   size = input<'hero' | 'tile'>('tile');
+  t = inject(I18n).t;
+  text = {
+    ...ui,
+    featured: { es: 'Proyecto destacado', en: 'Featured project' },
+    howBuilt: { es: 'Cómo está hecho', en: 'How it is built' },
+    tech: { es: 'Tecnologías', en: 'Technologies' },
+    view: { es: 'Ver el proyecto', en: 'View project' },
+    tryDemo: { es: 'Probar la demo', en: 'Try the demo' },
+    code: { es: 'Código en GitHub', en: 'Code on GitHub' },
+  };
 }

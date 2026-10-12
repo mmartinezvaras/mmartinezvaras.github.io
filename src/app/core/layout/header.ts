@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { site } from '../../data/site';
+import { I18n } from '../i18n';
 import { Theme } from '../theme';
 import { allLinks } from './nav';
 
@@ -15,19 +16,27 @@ import { allLinks } from './nav';
         </a>
 
         <div class="flex items-center gap-2">
-          <nav aria-label="Principal" class="hidden lg:block">
+          <nav [attr.aria-label]="t(text.nav)" class="hidden lg:block">
             <ul class="flex items-center gap-1 text-sm">
               @for (link of links; track link.path) {
                 <li>
                   <a class="navlink flex min-h-11 items-center whitespace-nowrap rounded-lg px-3" [routerLink]="link.path"
-                     routerLinkActive="active" ariaCurrentWhenActive="page">{{ link.label }}</a>
+                     routerLinkActive="active" ariaCurrentWhenActive="page">{{ t(link.label) }}</a>
                 </li>
               }
             </ul>
           </nav>
 
+          <!-- Idioma: muestra el idioma al que se cambia, con la etiqueta en ese idioma -->
+          <button type="button" class="btn icon-btn size-11 p-0 text-[0.8125rem] font-semibold tracking-wide text-muted"
+                  [attr.lang]="i18n.lang() === 'es' ? 'en' : 'es'"
+                  [attr.aria-label]="i18n.lang() === 'es' ? 'Switch to English' : 'Cambiar a español'"
+                  (click)="i18n.toggle()">
+            {{ i18n.lang() === 'es' ? 'EN' : 'ES' }}
+          </button>
+
           <button type="button" class="btn icon-btn -mr-2 size-11 p-0 text-muted"
-                  [attr.aria-label]="theme.dark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+                  [attr.aria-label]="t(theme.dark() ? text.toLight : text.toDark)"
                   (click)="theme.toggle()">
             @if (theme.dark()) {
               <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
@@ -49,4 +58,11 @@ export class Header {
   site = site;
   links = allLinks;
   theme = inject(Theme);
+  i18n = inject(I18n);
+  t = this.i18n.t;
+  text = {
+    nav: { es: 'Principal', en: 'Main' },
+    toLight: { es: 'Cambiar a modo claro', en: 'Switch to light mode' },
+    toDark: { es: 'Cambiar a modo oscuro', en: 'Switch to dark mode' },
+  };
 }

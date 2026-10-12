@@ -23,7 +23,14 @@ Para probarlo en el móvil, arranca con `npx ng serve --host 0.0.0.0` y abre `ht
 | Colores, tipografía, botones, tarjetas, animaciones | `src/styles.css` |
 | Cabecera, barra de pestañas (móvil) y pie | `src/app/core/layout/` |
 | Páginas | `src/app/pages/` |
-| CV descargable | `public/Marcos_Maria_Martinez_Varas_BigData_IA.pdf` (si cambias el nombre, actualiza `cv` en `site.ts`) |
+| CV descargable | `public/Marcos_Maria_Martinez_Varas_BigData_IA.pdf` y `..._EN.pdf` (fuente en `cv/`; si cambias el nombre, actualiza `cv` y `cvEn` en `site.ts`) |
+| Idioma (ES/EN) | `src/app/core/i18n.ts` |
+
+## Idiomas
+
+La web está en español e inglés. Español por defecto; el botón ES/EN de la cabecera cambia el idioma y la elección se recuerda. Para compartir directamente la versión en inglés: `https://mmartinezvaras.github.io/inicio/?lang=en`.
+
+Cada texto visible va en los dos idiomas como `{ es: '...', en: '...' }` (en las listas, una lista por idioma: `{ es: [...], en: [...] }`). Lo que no cambia entre idiomas (nombres propios, tecnologías, enlaces) puede ir como texto normal.
 
 ## Añadir un proyecto
 
@@ -31,7 +38,7 @@ No hay que tocar ningún componente:
 
 1. Abre `src/app/data/projects.ts`.
 2. Copia un bloque `{ ... }` de la lista `projects` y pégalo donde quieras que aparezca (el orden de la lista es el orden en la web).
-3. Cambia sus datos, escribiendo para alguien que no es técnico (por ejemplo, un reclutador):
+3. Cambia sus datos, en español y en inglés, escribiendo para alguien que no es técnico (por ejemplo, un reclutador):
    - `slug`: identificador para la URL (`/proyectos/mi-proyecto`), en minúsculas y con guiones.
    - `name`: nombre corto del proyecto.
    - `area`: una de `IA generativa`, `Big Data`, `IA y ML` o `Desarrollo` (es el filtro de la página).
