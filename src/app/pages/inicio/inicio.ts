@@ -23,7 +23,10 @@ import { site } from '../../data/site';
       <p appReveal class="lead mt-4 max-w-2xl" style="--i: 3">{{ site.intro }}</p>
 
       <div appReveal class="mt-10 grid gap-3 min-[420px]:flex min-[420px]:flex-wrap" style="--i: 4">
-        <a [href]="site.cv" [attr.download]="site.cvFileName" class="btn btn-solid">Descargar CV</a>
+        <div class="grid grid-cols-2 gap-3 min-[420px]:contents">
+          <a [href]="site.cv" [attr.download]="site.cvFileName" class="btn btn-solid">Descargar CV</a>
+          <a [href]="site.cvEn" [attr.download]="site.cvEnFileName" hreflang="en" lang="en" class="btn btn-ghost">CV in English</a>
+        </div>
         <div class="grid grid-cols-3 gap-3 min-[420px]:contents">
           <a [href]="site.github" target="_blank" rel="noopener" class="btn btn-ghost">GitHub<span class="sr-only"> (se abre en otra pestaña)</span></a>
           <a [href]="site.linkedin" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn<span class="sr-only"> (se abre en otra pestaña)</span></a>

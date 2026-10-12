@@ -10,6 +10,18 @@ export interface Note {
 }
 
 export const notes: Note[] = [
+  // Plantilla de nota vacía: cópiala, quita los // y rellénala. El Lab las muestra en el orden de este array.
+  // {
+  //   slug: '',
+  //   title: '',
+  //   date: '',
+  //   isoDate: '',
+  //   tags: [],
+  //   summary: '',
+  //   body: [
+  //     '',
+  //   ],
+  // },
   {
     slug: 'agente-local-ollama-opencode',
     title: 'Montar un agente de programación local y gratuito en una RTX 3060',

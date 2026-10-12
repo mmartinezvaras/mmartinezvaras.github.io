@@ -15,7 +15,7 @@ export class SeoTitleStrategy extends TitleStrategy {
 
   override updateTitle(snapshot: RouterStateSnapshot) {
     const page = this.buildTitle(snapshot);
-    const full = page ? `${page} · ${SITE}` : `${SITE} · Junior Data & AI Engineer`;
+    const full = page ? `${page} · ${SITE}` : `${SITE} · Junior Data Engineer`;
     this.title.setTitle(full);
 
     // Con barra final: es la URL que GitHub Pages sirve con 200 (sin ella responde 301)

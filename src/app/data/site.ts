@@ -1,7 +1,7 @@
 // Todo el contenido personal de la web vive aquí.
 export const site = {
   name: 'Marcos María Martínez Varas',
-  role: 'Junior Data & AI Engineer',
+  role: 'Junior Data Engineer',
   focus: 'Big Data e IA generativa',
   tagline: 'Convierto datos en decisiones.',
   intro:

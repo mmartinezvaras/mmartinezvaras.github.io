@@ -125,6 +125,7 @@ export const projects: Project[] = [
     stack: ['Python', 'pandas', 'scikit-learn', 'Jupyter'],
     repo: 'https://github.com/mmartinezvaras/laliga-match-prediction',
   },
+  // Cuando el pipeline PySpark esté terminado: poner featured: true aquí y quitarlo de rag-pdfs
   {
     slug: 'banking-lakehouse',
     name: 'Banco simulado para detectar fraude',
