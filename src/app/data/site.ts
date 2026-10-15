@@ -83,7 +83,14 @@ export const site = {
       },
     },
   ],
-  certifications: [] as { title: string | L; issuer: string; year: string }[],
+  certifications: [
+    {
+      title: 'Data Science Essentials with Python',
+      issuer: 'Cisco',
+      year: 'Oct 2026',
+      url: 'https://www.credly.com/badges/3eb09829-dfb1-4eed-ada0-a2b9ffe9e77b/public_url',
+    },
+  ] as { title: string | L; issuer: string; year: string; url?: string }[],
   languages: [
     { name: { es: 'Español', en: 'Spanish' }, level: { es: 'Nativo', en: 'Native' } },
     { name: { es: 'Inglés', en: 'English' }, level: 'C2 · LanguageCert' },

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { I18n } from '../../core/i18n';
+import { I18n, ui } from '../../core/i18n';
 import { Reveal } from '../../core/reveal';
 import { site } from '../../data/site';
 
@@ -57,7 +57,15 @@ import { site } from '../../data/site';
           <h2 class="text-2xl">{{ t(text.certifications) }}</h2>
           <ul class="mt-4">
             @for (c of site.certifications; track $index) {
-              <li class="border-t py-3">{{ t(c.title) }} <span class="text-muted">· {{ c.issuer }} · {{ c.year }}</span></li>
+              <li class="border-t pt-3">
+                <p>{{ t(c.title) }}</p>
+                <p class="text-muted">{{ c.issuer }} · {{ t(c.year) }}</p>
+                @if (c.url) {
+                  <a class="btn-link inline-flex items-center" [href]="c.url" target="_blank" rel="noopener">
+                    {{ t(text.credential) }} <span aria-hidden="true">&nbsp;↗</span><span class="sr-only">: {{ t(c.title) }} {{ t(ui.newTab) }}</span>
+                  </a>
+                }
+              </li>
             }
           </ul>
         </div>
@@ -76,5 +84,7 @@ export default class Estudios {
     current: { es: 'En curso', en: 'In progress' },
     languages: { es: 'Idiomas', en: 'Languages' },
     certifications: { es: 'Certificaciones', en: 'Certifications' },
+    credential: { es: 'Ver credencial', en: 'View credential' },
   };
+  ui = ui;
 }
