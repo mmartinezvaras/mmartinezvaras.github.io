@@ -484,11 +484,11 @@ export const projects: Project[] = [
   },
   {
     slug: 'gestion-reventa',
-    name: { es: 'Panel de reventa de auriculares', en: 'Headphone resale dashboard' },
+    name: { es: 'Panel de reventa de productos', en: 'Product resale dashboard' },
     area: 'Desarrollo',
     problem: {
-      es: 'Revender auriculares en Wallapop, Vinted o eBay parece rentable hasta que sumas envíos, comisiones y lo que no se vende.',
-      en: "Reselling headphones on Wallapop, Vinted or eBay looks profitable until you add up shipping, fees and the units that don't sell.",
+      es: 'Revender productos en Wallapop, Vinted o eBay parece rentable hasta que sumas envíos, comisiones y lo que no se vende.',
+      en: "Reselling products on Wallapop, Vinted or eBay looks profitable until you add up shipping, fees and the units that don't sell.",
     },
     impact: {
       value: { es: 'Margen real por producto', en: 'Real margin per product' },
