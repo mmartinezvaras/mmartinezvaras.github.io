@@ -83,7 +83,20 @@ export const site = {
       },
     },
   ],
+  // De la más reciente a la más antigua
   certifications: [
+    {
+      title: 'Python Essentials 2',
+      issuer: 'Cisco · OpenEDG Python Institute',
+      year: 'Oct 2026',
+      url: 'https://www.credly.com/badges/50a0a413-61d9-47c9-be51-33c1361e98e5/public_url',
+    },
+    {
+      title: 'Python Essentials 1',
+      issuer: 'Cisco · OpenEDG Python Institute',
+      year: 'Oct 2026',
+      url: 'https://www.credly.com/badges/d5f2e3d3-7c41-4ec8-8fdd-0be91d3ac1a8/public_url',
+    },
     {
       title: 'Data Science Essentials with Python',
       issuer: 'Cisco',
