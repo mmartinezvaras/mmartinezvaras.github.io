@@ -489,6 +489,15 @@
   /* Lo que ya está en pantalla al cargar aparece sin animación */
   .reveal.reveal-now { transition: none; }
 
+  /* Flecha de las tarjetas de certificación: se ilumina y se desplaza un poco hacia el enlace al pasar el ratón */
+  .cert-arrow {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    color: var(--muted);
+    transition: color 200ms var(--ease-out), transform 200ms var(--ease-out);
+  }
+
   /* ---------- Hover: solo con ratón ---------- */
   @media (hover: hover) and (pointer: fine) {
     .btn-solid:hover { background-color: color-mix(in srgb, var(--fg) 82%, var(--bg)); }
@@ -498,6 +507,7 @@
     .chip:hover:not([aria-pressed='true']) { color: var(--fg); background: var(--card); }
     .card:hover { transform: translateY(-2px); }
     .card:hover::after { opacity: 1; }
+    .card:hover .cert-arrow { color: var(--fg); transform: translate(2px, -2px); }
     .navlink:hover { color: var(--fg); }
     .brand:hover { opacity: 0.7; }
     .row:hover { background-color: color-mix(in srgb, var(--fg) 4%, transparent); }
@@ -553,7 +563,7 @@
   .sheet[data-closing='true'] { opacity: 0; }
   @starting-style { .sheet[open] { transform: none; opacity: 0; } }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
-  @media (hover: hover) and (pointer: fine) { .card:hover { transform: none; } }
+  @media (hover: hover) and (pointer: fine) { .card:hover, .card:hover .cert-arrow { transform: none; } }
 }
 
 /* Al imprimir no hay scroll que revele nada: todo visible y sin cromo de navegación */

@@ -87,14 +87,14 @@ export const site = {
   certifications: [
     {
       title: 'Python Essentials 2',
-      issuer: 'Cisco · OpenEDG Python Institute',
+      issuer: 'Cisco',
       year: 'Oct 2026',
       url: 'https://www.credly.com/badges/50a0a413-61d9-47c9-be51-33c1361e98e5/public_url',
       image: 'https://images.credly.com/size/160x160/images/3f802526-7274-4230-91ab-f6d1a35340e6/image.png',
     },
     {
       title: 'Python Essentials 1',
-      issuer: 'Cisco · OpenEDG Python Institute',
+      issuer: 'Cisco',
       year: 'Oct 2026',
       url: 'https://www.credly.com/badges/d5f2e3d3-7c41-4ec8-8fdd-0be91d3ac1a8/public_url',
       image: 'https://images.credly.com/size/160x160/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/image.png',
