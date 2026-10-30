@@ -39,37 +39,48 @@ import { site } from '../../data/site';
       </ol>
     </section>
 
-    <section class="wrap mt-14 grid gap-3 sm:mt-20 md:grid-flow-col md:auto-cols-fr md:gap-5">
-      <div appReveal class="panel px-6 py-7 sm:p-8">
-        <h2 class="text-2xl">{{ t(text.languages) }}</h2>
-        <ul class="mt-4">
-          @for (lang of site.languages; track $index) {
-            <li class="flex items-baseline justify-between gap-4 border-t py-3">
-              <span>{{ t(lang.name) }}</span>
-              <span class="text-muted">{{ t(lang.level) }}</span>
+    <!-- Certificaciones: sección propia con rejilla, crece sin descuadrar nada.
+         Solo aparece cuando hay alguna en site.ts (ordenadas de la más reciente a la más antigua). -->
+    @if (site.certifications.length) {
+      <section class="wrap mt-14 sm:mt-20" aria-labelledby="certificaciones">
+        <h2 appReveal id="certificaciones" class="text-[clamp(1.75rem,5vw,3rem)]">{{ t(text.certifications) }}</h2>
+        <ul class="mt-8 grid gap-3 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+          @for (c of site.certifications; track $index) {
+            <li appReveal [style.--i]="$index">
+              <article [class]="c.url ? 'card' : 'panel'" class="flex h-full flex-col px-6 py-7 sm:p-8">
+                <p class="eyebrow">{{ c.issuer }}</p>
+                <h3 class="mb-8 mt-2 text-xl leading-snug">
+                  @if (c.url) {
+                    <a class="stretched" [href]="c.url" target="_blank" rel="noopener">
+                      {{ t(c.title) }}<span class="sr-only"> · {{ t(text.credential) }} {{ t(ui.newTab) }}</span>
+                    </a>
+                  } @else {
+                    {{ t(c.title) }}
+                  }
+                </h3>
+                <div class="mt-auto flex items-baseline justify-between gap-4 border-t pt-4">
+                  <span class="text-sm text-muted">{{ t(c.year) }}</span>
+                  @if (c.url) {
+                    <span class="text-sm font-medium" aria-hidden="true">{{ t(text.credential) }}&nbsp;↗</span>
+                  }
+                </div>
+              </article>
             </li>
           }
         </ul>
-      </div>
-      <!-- Solo aparece cuando hay alguna certificación en site.ts -->
-      @if (site.certifications.length) {
-        <div appReveal class="panel px-6 py-7 sm:p-8" style="--i: 1">
-          <h2 class="text-2xl">{{ t(text.certifications) }}</h2>
-          <ul class="mt-4">
-            @for (c of site.certifications; track $index) {
-              <li class="border-t pt-3">
-                <p>{{ t(c.title) }}</p>
-                <p class="text-muted">{{ c.issuer }} · {{ t(c.year) }}</p>
-                @if (c.url) {
-                  <a class="btn-link inline-flex items-center" [href]="c.url" target="_blank" rel="noopener">
-                    {{ t(text.credential) }} <span aria-hidden="true">&nbsp;↗</span><span class="sr-only">: {{ t(c.title) }} {{ t(ui.newTab) }}</span>
-                  </a>
-                }
-              </li>
-            }
-          </ul>
-        </div>
-      }
+      </section>
+    }
+
+    <section class="wrap mt-14 sm:mt-20" aria-labelledby="idiomas">
+      <h2 appReveal id="idiomas" class="text-[clamp(1.75rem,5vw,3rem)]">{{ t(text.languages) }}</h2>
+      <ul class="mt-8 grid gap-3 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+        @for (lang of site.languages; track $index) {
+          <li appReveal class="panel px-6 py-7 sm:p-8" [style.--i]="$index">
+            <p class="text-xl">{{ t(lang.name) }}</p>
+            <p class="mt-1 text-muted">{{ t(lang.level) }}</p>
+          </li>
+        }
+      </ul>
     </section>
   `
 })
@@ -82,8 +93,8 @@ export default class Estudios {
     experience: { es: 'Experiencia.', en: 'Experience.' },
     education: { es: 'Formación.', en: 'Education.' },
     current: { es: 'En curso', en: 'In progress' },
-    languages: { es: 'Idiomas', en: 'Languages' },
-    certifications: { es: 'Certificaciones', en: 'Certifications' },
+    languages: { es: 'Idiomas.', en: 'Languages.' },
+    certifications: { es: 'Certificaciones.', en: 'Certifications.' },
     credential: { es: 'Ver credencial', en: 'View credential' },
   };
   ui = ui;
