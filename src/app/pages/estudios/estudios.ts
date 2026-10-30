@@ -48,6 +48,9 @@ import { site } from '../../data/site';
           @for (c of site.certifications; track $index) {
             <li appReveal [style.--i]="$index">
               <article [class]="c.url ? 'card' : 'panel'" class="flex h-full flex-col px-6 py-7 sm:p-8">
+                @if (c.image) {
+                  <img class="mb-5 size-20" [src]="c.image" alt="" width="80" height="80" loading="lazy" decoding="async" />
+                }
                 <p class="eyebrow">{{ c.issuer }}</p>
                 <h3 class="mb-8 mt-2 text-xl leading-snug">
                   @if (c.url) {
