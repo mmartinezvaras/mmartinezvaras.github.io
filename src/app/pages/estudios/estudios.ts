@@ -47,26 +47,26 @@ import { site } from '../../data/site';
         <ul class="mt-8 grid gap-3 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
           @for (c of site.certifications; track $index) {
             <li appReveal [style.--i]="$index">
-              <article [class]="c.url ? 'card' : 'panel'" class="flex h-full flex-col px-6 py-7 sm:p-8">
+              <!-- Fila compacta: insignia a la izquierda, texto a la derecha; toda la tarjeta enlaza a Credly -->
+              <article [class]="c.url ? 'card' : 'panel'" class="flex h-full items-center gap-5 py-5 pl-5 pr-10">
                 @if (c.image) {
-                  <img class="mb-5 size-20" [src]="c.image" alt="" width="80" height="80" loading="lazy" decoding="async" />
+                  <img class="size-[72px] flex-none rounded-xl" [src]="c.image" alt="" width="72" height="72" loading="lazy" decoding="async" />
                 }
-                <p class="eyebrow">{{ c.issuer }}</p>
-                <h3 class="mb-8 mt-2 text-xl leading-snug">
-                  @if (c.url) {
-                    <a class="stretched" [href]="c.url" target="_blank" rel="noopener">
-                      {{ t(c.title) }}<span class="sr-only"> · {{ t(text.credential) }} {{ t(ui.newTab) }}</span>
-                    </a>
-                  } @else {
-                    {{ t(c.title) }}
-                  }
-                </h3>
-                <div class="mt-auto flex items-baseline justify-between gap-4 border-t pt-4">
-                  <span class="text-sm text-muted">{{ t(c.year) }}</span>
-                  @if (c.url) {
-                    <span class="text-sm font-medium" aria-hidden="true">{{ t(text.credential) }}&nbsp;↗</span>
-                  }
+                <div class="min-w-0">
+                  <h3 class="text-[1.0625rem] font-semibold leading-snug">
+                    @if (c.url) {
+                      <a class="stretched" [href]="c.url" target="_blank" rel="noopener">
+                        {{ t(c.title) }}<span class="sr-only"> · {{ t(text.credential) }} {{ t(ui.newTab) }}</span>
+                      </a>
+                    } @else {
+                      {{ t(c.title) }}
+                    }
+                  </h3>
+                  <p class="mt-1 text-sm text-muted">{{ c.issuer }} · {{ t(c.year) }}</p>
                 </div>
+                @if (c.url) {
+                  <span class="cert-arrow" aria-hidden="true">↗</span>
+                }
               </article>
             </li>
           }
@@ -78,9 +78,9 @@ import { site } from '../../data/site';
       <h2 appReveal id="idiomas" class="text-[clamp(1.75rem,5vw,3rem)]">{{ t(text.languages) }}</h2>
       <ul class="mt-8 grid gap-3 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
         @for (lang of site.languages; track $index) {
-          <li appReveal class="panel px-6 py-7 sm:p-8" [style.--i]="$index">
-            <p class="text-xl">{{ t(lang.name) }}</p>
-            <p class="mt-1 text-muted">{{ t(lang.level) }}</p>
+          <li appReveal class="panel px-6 py-5" [style.--i]="$index">
+            <p class="text-[1.0625rem] font-semibold">{{ t(lang.name) }}</p>
+            <p class="mt-1 text-sm text-muted">{{ t(lang.level) }}</p>
           </li>
         }
       </ul>
