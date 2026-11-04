@@ -23,8 +23,8 @@ export const site = {
     en: "I'm looking for an internship or my first role as a junior data professional (Data Engineer, BI or ETL), and I'm also open to generative AI and legacy modernisation projects.",
   },
   availability: {
-    es: 'Disponible ya por las mañanas (hasta las 15:00) · Jornada completa desde junio de 2027',
-    en: 'Available now for mornings (until 15:00 CET) · Full-time from June 2027',
+    es: 'Disponibilidad inmediata a jornada completa',
+    en: 'Available immediately for full-time work',
   },
   email: 'mmartinezvaras@icloud.com',
   github: 'https://github.com/mmartinezvaras',
@@ -113,8 +113,8 @@ export const site = {
   ],
   extras: [
     {
-      es: 'Disponible ya por las mañanas (hasta las 15:00) · Jornada completa desde junio de 2027',
-      en: 'Available now for mornings (until 15:00 CET) · Full-time from June 2027',
+      es: 'Disponibilidad inmediata a jornada completa',
+      en: 'Available immediately for full-time work',
     },
     { es: 'Carnet de conducir', en: 'Driving licence' },
     {
