@@ -61,34 +61,33 @@
     <h2>Projects</h2>
     <p class="repos">Code and documentation at <a href="https://github.com/mmartinezvaras">github.com/mmartinezvaras</a></p>
     <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/Python-RAG-AI-para-los-PDFs"><strong>RAG assistant for PDFs</strong></a> <span class="stack">· Python, LangChain, ChromaDB, Ollama, Streamlit</span></p>
-      <p>Answers questions about PDF documents with a local LLM, citing the document and page behind every answer. <span class="nowrap">LLM-as-a-judge</span> evaluation with pytest on GitHub Actions for every change; one-click demo with Codespaces and Docker.</p>
+      <p><a href="https://github.com/mmartinezvaras/banking-lakehouse-pyspark"><strong>Banking lakehouse and fraud detection</strong></a> <span class="stack">· PySpark, Delta Lake, Streamlit</span></p>
+      <p>Bronze/Silver/Gold with a quarantine for bad rows, incremental <span class="nowrap">MERGE</span> and time travel. Fraud rules with window functions catch 13 of 13 attacks and stop 99.9% of the stolen money (the naive rule: 4 of 13).</p>
     </div>
     <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/banking-lakehouse-pyspark"><strong>Banking lakehouse</strong></a> <span class="stack">· Python, PySpark, Delta Lake</span> · <span class="badge">In progress</span></p>
-      <p>Reproducible simulated bank: 1,000 customers and 50,062 transactions with 62 frauds, tested on GitHub Actions. In progress: Bronze/Silver/Gold pipeline with PySpark and Delta Lake, and fraud detection with window functions.</p>
+      <p><a href="https://github.com/mmartinezvaras/credit-scoring"><strong>Explainable credit scoring</strong></a> <span class="stack">· LightGBM, SHAP, scikit-learn, Streamlit</span></p>
+      <p>Probability of default for 30,000 customers with monotonic LightGBM with a Gini of 0.546 versus 0.478 for logistic regression, explained with SHAP. Reviewing 47% of customers avoids 77% of defaults. App live on Streamlit Cloud.</p>
     </div>
     <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/laliga-match-prediction"><strong>LaLiga match prediction</strong></a> <span class="stack">· Python, pandas, scikit-learn</span></p>
+      <p><a href="https://github.com/mmartinezvaras/Python-RAG-AI-para-los-PDFs"><strong>RAG assistant for the Spanish Workers' Statute</strong></a> <span class="stack">· LangChain, ChromaDB, BM25, Ollama, Gemini</span></p>
+      <p>Hybrid retrieval (vectors + BM25) that cites the article and page and refuses what the law does not cover. Evaluated in CI on 35 questions: right article 87% of the time, correct answers 77%. Live online demo.</p>
+    </div>
+    <div class="project">
+      <p><a href="https://github.com/mmartinezvaras/bigdata-pagos-tarjeta"><strong>Real-time card payments</strong></a> <span class="stack">· Kafka, Hadoop HDFS, Hive, Docker</span></p>
+      <p>Simulator → Kafka → HDFS → Hive with at-least-once delivery and per-rule quarantine. 0 payments lost out of 102,000 messages, even when the consumer is killed; results checked cell by cell against expected values.</p>
+    </div>
+    <div class="project">
+      <p><a href="https://github.com/mmartinezvaras/laliga-match-prediction"><strong>LaLiga match prediction</strong></a> <span class="stack">· pandas, scikit-learn</span></p>
       <p>Random Forest with time-based validation and leakage-free recent-form features: 51.5% precision when predicting wins, against a 38% base rate.</p>
-    </div>
-    <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/consolaAdminProductos"><strong>Resale management dashboard</strong></a> <span class="stack">· Java 21, Spring Boot, MySQL, Angular</span></p>
-      <p>REST API with 64 endpoints, pessimistic locking to keep stock consistent, an auditable inventory ledger and 26 tests with JUnit 5 and Mockito.</p>
-    </div>
-    <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/nosql-financial-engine"><strong>NoSQL banking database</strong></a> <span class="stack">· MongoDB Atlas, PyMongo</span></p>
-      <p>Customers modelled as documents with embedded data, single and compound indexes, and aggregation pipelines that compute KPIs such as the average balance per account type.</p>
     </div>
   </section>
 
   <section class="skills">
     <h2>Technical skills</h2>
-    <p><strong>Data:</strong> Python, SQL, pandas, MySQL, MongoDB · Spark/PySpark (basic) · Hadoop HDFS (basic)</p>
-    <p><strong>Generative AI and ML:</strong> LLMs, RAG, LangChain, ChromaDB, Ollama, prompting, scikit-learn</p>
-    <p><strong>Development:</strong> Java, Spring Boot, JPA, Angular, TypeScript, JavaScript, Tailwind CSS, HTML/CSS</p>
-    <p><strong>Quality and DevOps:</strong> Git, GitHub Actions, Docker, pytest, JUnit 5</p>
-    <p><strong>Mainframe:</strong> COBOL (learning)</p>
+    <p><strong>Big Data:</strong> PySpark, Delta Lake, Kafka, Hadoop HDFS, Hive, Parquet</p>
+    <p><strong>Data and AI:</strong> Python, SQL, pandas, scikit-learn, LightGBM, SHAP · LLMs, RAG, LangChain, ChromaDB, Ollama</p>
+    <p><strong>Development:</strong> Java, Spring Boot, MySQL, MongoDB, Angular, TypeScript</p>
+    <p><strong>Quality and DevOps:</strong> Git, GitHub Actions, Docker, pytest, JUnit 5 · <strong>Mainframe:</strong> COBOL (learning)</p>
   </section>
 
   <!-- Certifications: remove "hidden" and add one <li> per certificate. -->
@@ -100,6 +99,7 @@
   <section>
     <h2>Languages and other</h2>
     <p><span class="label">Languages:</span> Spanish (native) · English C2 (LanguageCert)</p>
+    <p><span class="label">Certifications:</span> Python Essentials 1 and 2, and Data Science Essentials with Python (Cisco)</p>
     <p><span class="label">Other:</span> Driving licence · Football team coach (leadership and organisation)</p>
   </section>
 </main>

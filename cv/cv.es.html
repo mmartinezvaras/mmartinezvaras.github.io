@@ -61,34 +61,33 @@
     <h2>Proyectos</h2>
     <p class="repos">Código y documentación en <a href="https://github.com/mmartinezvaras">github.com/mmartinezvaras</a></p>
     <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/Python-RAG-AI-para-los-PDFs"><strong>Asistente RAG para PDFs</strong></a> <span class="stack">· Python, LangChain, ChromaDB, Ollama, Streamlit</span></p>
-      <p>Responde preguntas sobre PDFs con un LLM local, citando documento y página de cada respuesta. Evaluación <span class="nowrap">LLM-as-judge</span> con pytest en GitHub Actions en cada cambio; demo en un clic con Codespaces y Docker.</p>
+      <p><a href="https://github.com/mmartinezvaras/banking-lakehouse-pyspark"><strong>Lakehouse bancario y detección de fraude</strong></a> <span class="stack">· PySpark, Delta Lake, Streamlit</span></p>
+      <p>Bronze/Silver/Gold con cuarentena de filas erróneas, <span class="nowrap">MERGE</span> incremental y time travel. Reglas de fraude con funciones de ventana: detectan 13 de 13 ataques y frenan el 99,9&nbsp;% del dinero defraudado (la regla simple, 4 de 13).</p>
     </div>
     <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/banking-lakehouse-pyspark"><strong>Banking lakehouse</strong></a> <span class="stack">· Python, PySpark, Delta Lake</span> · <span class="badge">En desarrollo</span></p>
-      <p>Banco simulado y reproducible: 1.000 clientes y 50.062 transacciones con 62 fraudes, con tests en GitHub Actions. En curso: pipeline Bronze/Silver/Gold con PySpark y Delta Lake y detección de fraude con funciones de ventana.</p>
+      <p><a href="https://github.com/mmartinezvaras/credit-scoring"><strong>Scoring de crédito explicable</strong></a> <span class="stack">· LightGBM, SHAP, scikit-learn, Streamlit</span></p>
+      <p>Probabilidad de impago de 30.000 clientes con LightGBM monótono con Gini 0,546 frente a 0,478 de la regresión logística, explicada con SHAP. Revisando al 47&nbsp;% de clientes se evita el 77&nbsp;% de los impagos. App publicada en Streamlit Cloud.</p>
     </div>
     <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/laliga-match-prediction"><strong>Predicción de partidos de La Liga</strong></a> <span class="stack">· Python, pandas, scikit-learn</span></p>
+      <p><a href="https://github.com/mmartinezvaras/Python-RAG-AI-para-los-PDFs"><strong>Asistente RAG del Estatuto de los Trabajadores</strong></a> <span class="stack">· LangChain, ChromaDB, BM25, Ollama, Gemini</span></p>
+      <p>Búsqueda híbrida (vectores + BM25) que cita artículo y página del BOE y rechaza lo que no está en la ley. Evaluado en CI con 35 preguntas: 87&nbsp;% de artículos correctos y 77&nbsp;% de respuestas correctas. Demo online.</p>
+    </div>
+    <div class="project">
+      <p><a href="https://github.com/mmartinezvaras/bigdata-pagos-tarjeta"><strong>Pagos con tarjeta en tiempo real</strong></a> <span class="stack">· Kafka, Hadoop HDFS, Hive, Docker</span></p>
+      <p>Simulador → Kafka → HDFS → Hive con entrega at-least-once y cuarentena por regla. 0 pagos perdidos en 102.000 mensajes, también al matar el consumidor; resultados comprobados celda a celda contra los esperados.</p>
+    </div>
+    <div class="project">
+      <p><a href="https://github.com/mmartinezvaras/laliga-match-prediction"><strong>Predicción de partidos de La Liga</strong></a> <span class="stack">· pandas, scikit-learn</span></p>
       <p>Random Forest con validación temporal y variables de forma reciente sin fuga de datos: 51,5&nbsp;% de precisión al predecir victorias frente a un 38&nbsp;% de tasa base.</p>
-    </div>
-    <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/consolaAdminProductos"><strong>Panel de gestión de reventa</strong></a> <span class="stack">· Java 21, Spring Boot, MySQL, Angular</span></p>
-      <p>API REST de 64 endpoints con bloqueo pesimista para el stock, libro de inventario auditable y 26 tests con JUnit 5 y Mockito.</p>
-    </div>
-    <div class="project">
-      <p><a href="https://github.com/mmartinezvaras/nosql-financial-engine"><strong>Base de datos bancaria NoSQL</strong></a> <span class="stack">· MongoDB Atlas, PyMongo</span></p>
-      <p>Clientes modelados como documentos con datos embebidos, índices simples y compuestos y pipelines de agregación para calcular indicadores como el saldo medio por tipo de cuenta.</p>
     </div>
   </section>
 
   <section class="skills">
     <h2>Habilidades técnicas</h2>
-    <p><strong>Datos:</strong> Python, SQL, pandas, MySQL, MongoDB · Spark/PySpark (básico) · Hadoop HDFS (básico)</p>
-    <p><strong>IA generativa y ML:</strong> LLMs, RAG, LangChain, ChromaDB, Ollama, prompting, scikit-learn</p>
-    <p><strong>Desarrollo:</strong> Java, Spring Boot, JPA, Angular, TypeScript, JavaScript, Tailwind CSS, HTML/CSS</p>
-    <p><strong>Calidad y DevOps:</strong> Git, GitHub Actions, Docker, pytest, JUnit 5</p>
-    <p><strong>Mainframe:</strong> COBOL (aprendiendo)</p>
+    <p><strong>Big Data:</strong> PySpark, Delta Lake, Kafka, Hadoop HDFS, Hive, Parquet</p>
+    <p><strong>Datos e IA:</strong> Python, SQL, pandas, scikit-learn, LightGBM, SHAP · LLMs, RAG, LangChain, ChromaDB, Ollama</p>
+    <p><strong>Desarrollo:</strong> Java, Spring Boot, MySQL, MongoDB, Angular, TypeScript</p>
+    <p><strong>Calidad y DevOps:</strong> Git, GitHub Actions, Docker, pytest, JUnit 5 · <strong>Mainframe:</strong> COBOL (aprendiendo)</p>
   </section>
 
   <!-- Certificaciones: quita "hidden" y añade un <li> por certificado cuando los tengas. -->
@@ -100,6 +99,7 @@
   <section>
     <h2>Idiomas y otros</h2>
     <p><span class="label">Idiomas:</span> Español nativo · Inglés C2 (LanguageCert)</p>
+    <p><span class="label">Certificaciones:</span> Python Essentials 1 y 2 y Data Science Essentials with Python (Cisco)</p>
     <p><span class="label">Otros:</span> Carnet de conducir · Entrenador de un equipo de fútbol (liderazgo y organización)</p>
   </section>
 </main>

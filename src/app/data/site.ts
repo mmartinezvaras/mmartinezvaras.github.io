@@ -9,8 +9,8 @@ export const site = {
   focus: { es: 'Big Data e IA generativa', en: 'Big Data and Generative AI' },
   tagline: { es: 'Convierto datos en decisiones.', en: 'I turn data into decisions.' },
   intro: {
-    es: 'Técnico Superior en DAM con prácticas en Minsait (Indra Group) y estudiante del máster en Big Data, IA aplicada e IA generativa de U-tad. Estoy construyendo un pipeline de datos con PySpark y Delta Lake y aplicaciones con IA generativa, y aprendiendo COBOL para conectar los sistemas de siempre con la tecnología de hoy.',
-    en: "Higher Technician in Multiplatform Application Development (DAM) with an internship at Minsait (Indra Group), currently studying a Master's in Big Data, Applied AI and Generative AI at U-tad. I'm building a data pipeline with PySpark and Delta Lake and generative AI applications, and learning COBOL to connect long-standing systems with today's technology.",
+    es: 'Técnico Superior en DAM con prácticas en Minsait (Indra Group) y estudiante del máster en Big Data, IA aplicada e IA generativa de U-tad. He construido un lakehouse con PySpark y Delta Lake que detecta fraude, un pipeline en tiempo real con Kafka, HDFS y Hive, un modelo de riesgo de crédito explicable y un asistente con IA generativa que cita sus fuentes, y estoy aprendiendo COBOL para conectar los sistemas de siempre con la tecnología de hoy.',
+    en: "Higher Technician in Multiplatform Application Development (DAM) with an internship at Minsait (Indra Group), currently studying a Master's in Big Data, Applied AI and Generative AI at U-tad. I've built a PySpark and Delta Lake lakehouse that detects fraud, a real-time pipeline with Kafka, HDFS and Hive, an explainable credit risk model and a generative AI assistant that cites its sources, and I'm learning COBOL to connect long-standing systems with today's technology.",
   },
   cv: 'Marcos_Maria_Martinez_Varas_BigData_IA.pdf',
   // Nombre con el que se guarda el CV al descargarlo
@@ -122,20 +122,19 @@ export const site = {
       en: 'Experience coaching a football team: leadership and organisation',
     },
   ],
-  // Solo tecnologías usadas en repos públicos (o en el CV, como Spark, COBOL y Git).
+  // Solo tecnologías usadas en repos públicos (o en el CV, como COBOL y Git).
   skills: [
     {
       category: { es: 'IA generativa', en: 'Generative AI' },
-      items: ['LLMs', 'RAG', 'LangChain', 'Ollama', 'AWS Bedrock', 'ChromaDB', 'Streamlit', { es: 'Evaluación LLM-as-judge', en: 'LLM-as-a-judge evaluation' }, 'Prompting'].map((name) => ({ name, learning: false })),
+      items: ['LLMs', 'RAG', { es: 'Búsqueda híbrida (BM25 + vectores)', en: 'Hybrid search (BM25 + vectors)' }, 'LangChain', 'Ollama', 'Gemini', 'AWS Bedrock', 'ChromaDB', 'Streamlit', { es: 'Evaluación LLM-as-judge', en: 'LLM-as-a-judge evaluation' }, 'Prompting'].map((name) => ({ name, learning: false })),
     },
     {
       category: 'Machine Learning',
-      items: ['scikit-learn', 'pandas', 'Jupyter', 'Matplotlib'].map((name) => ({ name, learning: false })),
+      items: ['scikit-learn', 'LightGBM', 'SHAP', 'pandas', 'Jupyter', 'Matplotlib'].map((name) => ({ name, learning: false })),
     },
     {
       category: 'Big Data',
-      // Spark y HDFS en aprendizaje hasta terminar el pipeline PySpark de banking-lakehouse
-      items: ['Spark', 'Hadoop HDFS'].map((name) => ({ name, learning: true })),
+      items: ['PySpark', 'Delta Lake', 'Kafka', 'Hadoop HDFS', 'Hive', 'Parquet'].map((name) => ({ name, learning: false })),
     },
     {
       category: { es: 'Datos y backend', en: 'Data and back-end' },
@@ -143,7 +142,7 @@ export const site = {
     },
     {
       category: { es: 'Calidad y DevOps', en: 'Quality and DevOps' },
-      items: ['pytest', 'JUnit 5 / Mockito', 'GitHub Actions', 'Docker', 'Git'].map((name) => ({ name, learning: false })),
+      items: ['pytest', 'JUnit 5 / Mockito', 'GitHub Actions', 'Docker / Docker Compose', 'Git'].map((name) => ({ name, learning: false })),
     },
     {
       category: { es: 'Lenguajes y front-end', en: 'Languages and front-end' },
