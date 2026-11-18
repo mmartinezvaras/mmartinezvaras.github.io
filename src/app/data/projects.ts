@@ -121,7 +121,7 @@ export const projects: Project[] = [
         'The dashboard reads small deterministic exports, so it needs no Spark and can be hosted for free.',
       ],
     },
-    demo: 'https://codespaces.new/mmartinezvaras/banking-lakehouse-pyspark?quickstart=1',
+    demo: 'https://fraude-lakehouse-marcos.streamlit.app/',
     image: {
       src: 'https://raw.githubusercontent.com/mmartinezvaras/banking-lakehouse-pyspark/screenshots/light-top.png',
       alt: {
